@@ -15,3 +15,4 @@ Ruling: added an 11th rule, supported_resource_types, and a minimal terraform en
 Ruling: port 5310 is held by an unrelated container named infra-agent-proto-ls, which this session did not start - LocalStack uses 127.0.0.1:5312 - none
 Ruling: ruff extend-exclude = ["docs"] - ruff 0.16 formats python code blocks inside markdown and flagged the committed plan, failing G2 - docs code samples are not auto-formatted
 Task 1: complete (tests: scripts/dev.sh uv run pytest -q -> 2 passed; ruff check+format clean)
+Task 2: complete (tests: pytest tests/test_config.py tests/test_hashing.py -> 10 passed; red seen)
