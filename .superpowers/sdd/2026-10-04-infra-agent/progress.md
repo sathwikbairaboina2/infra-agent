@@ -17,3 +17,4 @@ Ruling: ruff extend-exclude = ["docs"] - ruff 0.16 formats python code blocks in
 Task 1: complete (tests: scripts/dev.sh uv run pytest -q -> 2 passed; ruff check+format clean)
 Task 2: complete (tests: pytest tests/test_config.py tests/test_hashing.py -> 10 passed; red seen)
 Task 3: complete (tests: scripts/dev.sh uv run pytest -q -> 33 passed total)
+Task 4: complete (tests: pytest -q -> all passed)
