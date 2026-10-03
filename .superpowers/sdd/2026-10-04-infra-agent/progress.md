@@ -25,3 +25,4 @@ Ruling: builder helper scripts moved from shared /tmp to the scratchpad - a sibl
 Task 8: complete (tests: opa test -> PASS: 23/23; opa check --strict clean)
 Task 9: complete (tests: opa test -> PASS: 39/39; red seen on one test, fixed object.union deep-merge in the test)
 Task 10: complete (tests: opa test -> PASS: 53/53; policy_coverage -> coverage: 11/11 rules (100%); pytest -q -> 84 passed; red seen: regex missed digit in no_public_s3). stub.rego removed
+Task 11: complete (tests: pytest -q -> 95 passed total)
