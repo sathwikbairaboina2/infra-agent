@@ -24,3 +24,4 @@ Task 7: complete (tests: opa test -> PASS: 10/10; pytest -q -> 82 passed). Note:
 Ruling: builder helper scripts moved from shared /tmp to the scratchpad - a sibling session overwrote /tmp/c.sh and /tmp/l.sh; commit 76b4df5 carries the wrong subject (feat(adapters)) for the Task 3 runner files and one stray ledger line was written into ../durable-multi-agent (commit 5e1ae68 there) - history rewrite avoided; reported to orchestrator
 Task 8: complete (tests: opa test -> PASS: 23/23; opa check --strict clean)
 Task 9: complete (tests: opa test -> PASS: 39/39; red seen on one test, fixed object.union deep-merge in the test)
+Task 10: complete (tests: opa test -> PASS: 53/53; policy_coverage -> coverage: 11/11 rules (100%); pytest -q -> 84 passed; red seen: regex missed digit in no_public_s3). stub.rego removed
