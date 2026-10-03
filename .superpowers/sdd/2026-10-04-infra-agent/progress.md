@@ -27,3 +27,4 @@ Task 9: complete (tests: opa test -> PASS: 39/39; red seen on one test, fixed ob
 Task 10: complete (tests: opa test -> PASS: 53/53; policy_coverage -> coverage: 11/11 rules (100%); pytest -q -> 84 passed; red seen: regex missed digit in no_public_s3). stub.rego removed
 Task 11: complete (tests: pytest -q -> 95 passed total)
 Task 12: complete (tests: pytest -q -> 103 passed total)
+Task 13: complete (tests: pytest -q -m 'not localstack' -> 108 passed; pytest -q -m localstack -> 3 passed in 105s; AWS_ENDPOINT_URL does route an unconfigured service (sqs data source) to LocalStack)
