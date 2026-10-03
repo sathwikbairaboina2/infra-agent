@@ -28,3 +28,4 @@ Task 10: complete (tests: opa test -> PASS: 53/53; policy_coverage -> coverage: 
 Task 11: complete (tests: pytest -q -> 95 passed total)
 Task 12: complete (tests: pytest -q -> 103 passed total)
 Task 13: complete (tests: pytest -q -m 'not localstack' -> 108 passed; pytest -q -m localstack -> 3 passed in 105s; AWS_ENDPOINT_URL does route an unconfigured service (sqs data source) to LocalStack)
+Task 14: complete (tests: pytest -q tests/test_corpus.py -> 18 passed; all 13 violation fixtures denied by exactly the indexed rules, compliant_base allow with 3 creates; aliased provider key is 'aws.real' with alias 'real' matching the factory, no normalizer change)

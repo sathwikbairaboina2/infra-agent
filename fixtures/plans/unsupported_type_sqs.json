@@ -1,0 +1,198 @@
+{
+ "applyable": true,
+ "complete": true,
+ "configuration": {
+  "provider_config": {
+   "aws": {
+    "expressions": {
+     "access_key": {
+      "constant_value": "test"
+     },
+     "endpoints": [
+      {
+       "dynamodb": {
+        "constant_value": "http://localstack:4566"
+       },
+       "ec2": {
+        "constant_value": "http://localstack:4566"
+       },
+       "iam": {
+        "constant_value": "http://localstack:4566"
+       },
+       "kms": {
+        "constant_value": "http://localstack:4566"
+       },
+       "s3": {
+        "constant_value": "http://localstack:4566"
+       },
+       "sts": {
+        "constant_value": "http://localstack:4566"
+       }
+      }
+     ],
+     "region": {
+      "constant_value": "us-east-1"
+     },
+     "s3_use_path_style": {
+      "constant_value": true
+     },
+     "secret_key": {
+      "constant_value": "test"
+     },
+     "skip_credentials_validation": {
+      "constant_value": true
+     },
+     "skip_metadata_api_check": {
+      "constant_value": true
+     },
+     "skip_requesting_account_id": {
+      "constant_value": true
+     }
+    },
+    "full_name": "registry.terraform.io/hashicorp/aws",
+    "name": "aws",
+    "version_constraint": "6.67.0"
+   }
+  },
+  "root_module": {
+   "resources": [
+    {
+     "address": "aws_sqs_queue.q",
+     "expressions": {
+      "name": {
+       "references": [
+        "var.name_prefix"
+       ]
+      },
+      "tags": {
+       "constant_value": {
+        "cost-center": "1234",
+        "owner": "platform"
+       }
+      }
+     },
+     "mode": "managed",
+     "name": "q",
+     "provider_config_key": "aws",
+     "schema_version": 0,
+     "type": "aws_sqs_queue"
+    }
+   ],
+   "variables": {
+    "name_prefix": {
+     "default": "demo"
+    }
+   }
+  }
+ },
+ "errored": false,
+ "format_version": "1.2",
+ "planned_values": {
+  "root_module": {
+   "resources": [
+    {
+     "address": "aws_sqs_queue.q",
+     "identity": {
+      "url": null
+     },
+     "identity_schema_version": 1,
+     "mode": "managed",
+     "name": "q",
+     "provider_name": "registry.terraform.io/hashicorp/aws",
+     "schema_version": 0,
+     "sensitive_values": {
+      "tags": {},
+      "tags_all": {}
+     },
+     "type": "aws_sqs_queue",
+     "values": {
+      "content_based_deduplication": false,
+      "delay_seconds": 0,
+      "fifo_queue": false,
+      "kms_master_key_id": null,
+      "max_message_size": 262144,
+      "message_retention_seconds": 345600,
+      "name": "demo-q",
+      "receive_wait_time_seconds": 0,
+      "region": "us-east-1",
+      "tags": {
+       "cost-center": "1234",
+       "owner": "platform"
+      },
+      "tags_all": {
+       "cost-center": "1234",
+       "owner": "platform"
+      },
+      "timeouts": null,
+      "visibility_timeout_seconds": 30
+     }
+    }
+   ]
+  }
+ },
+ "resource_changes": [
+  {
+   "address": "aws_sqs_queue.q",
+   "change": {
+    "actions": [
+     "create"
+    ],
+    "after": {
+     "content_based_deduplication": false,
+     "delay_seconds": 0,
+     "fifo_queue": false,
+     "kms_master_key_id": null,
+     "max_message_size": 262144,
+     "message_retention_seconds": 345600,
+     "name": "demo-q",
+     "receive_wait_time_seconds": 0,
+     "region": "us-east-1",
+     "tags": {
+      "cost-center": "1234",
+      "owner": "platform"
+     },
+     "tags_all": {
+      "cost-center": "1234",
+      "owner": "platform"
+     },
+     "timeouts": null,
+     "visibility_timeout_seconds": 30
+    },
+    "after_identity": {
+     "url": null
+    },
+    "after_sensitive": {
+     "tags": {},
+     "tags_all": {}
+    },
+    "after_unknown": {
+     "arn": true,
+     "deduplication_scope": true,
+     "fifo_throughput_limit": true,
+     "id": true,
+     "kms_data_key_reuse_period_seconds": true,
+     "name_prefix": true,
+     "policy": true,
+     "redrive_allow_policy": true,
+     "redrive_policy": true,
+     "sqs_managed_sse_enabled": true,
+     "tags": {},
+     "tags_all": {},
+     "url": true
+    },
+    "before": null,
+    "before_sensitive": false
+   },
+   "mode": "managed",
+   "name": "q",
+   "provider_name": "registry.terraform.io/hashicorp/aws",
+   "type": "aws_sqs_queue"
+  }
+ ],
+ "terraform_version": "1.16.5",
+ "variables": {
+  "name_prefix": {
+   "value": "demo"
+  }
+ }
+}

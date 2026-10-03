@@ -1,0 +1,14 @@
+compliant_base: {decision: allow}
+ssh_open_inline: {decision: deny, rules: [no_public_ingress_admin_ports]}
+rdp_vpc_ingress_rule: {decision: deny, rules: [no_public_ingress_admin_ports]}
+pg_ipv6_sg_rule: {decision: deny, rules: [no_public_ingress_admin_ports]}
+all_traffic_protocol_minus_one: {decision: deny, rules: [no_public_ingress_admin_ports]}
+iam_star_star: {decision: deny, rules: [no_wildcard_iam]}
+iam_s3_star_resource_star: {decision: deny, rules: [no_wildcard_iam]}
+s3_pab_disabled: {decision: deny, rules: [no_public_s3]}
+s3_acl_public_read: {decision: deny, rules: [no_public_s3]}
+s3_policy_principal_star: {decision: deny, rules: [no_public_s3]}
+provisioner_in_module: {decision: deny, rules: [no_provisioners]}
+aliased_provider_real_aws: {decision: deny, rules: [localstack_endpoints_only, region_allowlist]}
+resource_region_eu: {decision: deny, rules: [region_allowlist]}
+unsupported_type_sqs: {decision: deny, rules: [supported_resource_types]}
