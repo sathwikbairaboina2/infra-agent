@@ -34,3 +34,4 @@ Task 16: complete (tests: pytest -q -m 'not localstack' -> 146 passed, 1 skipped
 Task 17: complete (tests: pytest -q tests/test_apply_gate.py tests/test_service.py -> 20 passed)
 Task 18: complete (tests: pytest -q tests/test_restart.py -> 2 passed; separate OS processes propose/approve/approve, apply log has 1 line)
 Task 19: complete (tests: pytest -q tests/test_cli.py -> 11 passed; infra-agent --help prints in the container)
+Task 20: complete (tests: pytest -q tests/integration/test_e2e_localstack.py -> 3 passed in 222s against LocalStack 4.14.0)

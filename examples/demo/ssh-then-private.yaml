@@ -1,0 +1,35 @@
+# Scripted proposer for the demo: attempt 1 opens SSH to the world (policy refuses it),
+# attempt 2 restricts it to the private network (policy allows it, a human approves).
+attempts:
+  - summary: Allow SSH to the web security group
+    files:
+      - path: ssh.tf
+        content: |
+          resource "aws_vpc_security_group_ingress_rule" "ssh" {
+            security_group_id = aws_security_group.web.id
+            cidr_ipv4         = "0.0.0.0/0"
+            from_port         = 22
+            to_port           = 22
+            ip_protocol       = "tcp"
+
+            tags = {
+              owner       = "platform"
+              cost-center = "1234"
+            }
+          }
+  - summary: Allow SSH to the web security group from the private network only
+    files:
+      - path: ssh.tf
+        content: |
+          resource "aws_vpc_security_group_ingress_rule" "ssh" {
+            security_group_id = aws_security_group.web.id
+            cidr_ipv4         = "10.0.0.0/8"
+            from_port         = 22
+            to_port           = 22
+            ip_protocol       = "tcp"
+
+            tags = {
+              owner       = "platform"
+              cost-center = "1234"
+            }
+          }
