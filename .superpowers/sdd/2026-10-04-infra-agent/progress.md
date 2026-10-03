@@ -31,3 +31,4 @@ Task 13: complete (tests: pytest -q -m 'not localstack' -> 108 passed; pytest -q
 Task 14: complete (tests: pytest -q tests/test_corpus.py -> 18 passed; all 13 violation fixtures denied by exactly the indexed rules, compliant_base allow with 3 creates; aliased provider key is 'aws.real' with alias 'real' matching the factory, no normalizer change)
 Task 15: complete (tests: pytest -q -m 'not localstack' -> 139 passed, 1 skipped (live))
 Task 16: complete (tests: pytest -q -m 'not localstack' -> 146 passed, 1 skipped; tests/test_graph.py 7 passed; apply_gate.py is a stub until Task 17)
+Task 17: complete (tests: pytest -q tests/test_apply_gate.py tests/test_service.py -> 20 passed)
