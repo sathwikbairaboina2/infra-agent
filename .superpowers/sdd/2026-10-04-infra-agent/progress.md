@@ -13,3 +13,5 @@ Ruling: OPA runs as an `opa eval` subprocess with the policy inside the package,
 Ruling: CDK path deferred to v0.2 - design milestones put it there - v0.1 is Terraform only (ADR-0007)
 Ruling: added an 11th rule, supported_resource_types, and a minimal terraform env with AWS_ENDPOINT_URL - unconfigured services would otherwise route to real AWS endpoints - restricts v0.1 to s3/ec2-sg/dynamodb/iam/kms
 Ruling: port 5310 is held by an unrelated container named infra-agent-proto-ls, which this session did not start - LocalStack uses 127.0.0.1:5312 - none
+Ruling: ruff extend-exclude = ["docs"] - ruff 0.16 formats python code blocks inside markdown and flagged the committed plan, failing G2 - docs code samples are not auto-formatted
+Task 1: complete (tests: scripts/dev.sh uv run pytest -q -> 2 passed; ruff check+format clean)

@@ -1,0 +1,24 @@
+name: infra-agent
+services:
+  localstack:
+    image: localstack/localstack:4.14.0
+    container_name: infra-agent-localstack
+    ports: ["127.0.0.1:5312:4566"]
+  dev:
+    build: { context: ., target: dev }
+    image: infra-agent:dev
+    working_dir: /work
+    volumes:
+      - .:/work
+      - venv:/work/.venv
+      - home:/data
+    environment:
+      UV_PROJECT_ENVIRONMENT: /work/.venv
+      INFRA_AGENT_HOME: /data
+      INFRA_AGENT_LOCALSTACK_URL: http://localstack:4566
+      OLLAMA_BASE_URL: http://host.docker.internal:11434
+      INFRA_AGENT_LIVE: ${INFRA_AGENT_LIVE:-}
+    extra_hosts: ["host.docker.internal:host-gateway"]
+volumes:
+  venv: {}
+  home: {}
