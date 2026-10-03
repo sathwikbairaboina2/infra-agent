@@ -219,6 +219,7 @@ def build_graph(deps: Deps, checkpointer: BaseCheckpointSaver | None = None) -> 
             "run_id": state["run_id"],
             "summary": state.get("summary", ""),
             "attempt": state["attempt"],
+            "max_attempts": state["max_attempts"],
             "decision": d["decision"],
             "deny": d["deny"],
             "needs_approval": d["needs_approval"],

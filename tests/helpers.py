@@ -164,3 +164,23 @@ def initial_state(
         "refusal": [],
         "history": [],
     }
+
+
+def service_factory(tmp_path: Path, proposer: Any, plans: Sequence[dict[str, Any]]):
+    """A CLI service factory that builds a fresh Service (new sqlite connection) per call."""
+    from infra_agent.service import Service
+
+    runner = SplitRunner()
+    deps = make_deps(tmp_path, proposer=proposer, plans=plans, runner=runner)
+
+    def factory(settings: Settings, args: Any) -> Service:
+        return Service(
+            deps.settings,
+            proposer=deps.proposer,
+            planner=deps.planner,
+            runner=runner,
+            policy=deps.policy,
+            clock=lambda: FIXED_NOW,
+        )
+
+    return factory, runner
