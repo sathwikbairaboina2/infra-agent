@@ -32,3 +32,4 @@ Task 14: complete (tests: pytest -q tests/test_corpus.py -> 18 passed; all 13 vi
 Task 15: complete (tests: pytest -q -m 'not localstack' -> 139 passed, 1 skipped (live))
 Task 16: complete (tests: pytest -q -m 'not localstack' -> 146 passed, 1 skipped; tests/test_graph.py 7 passed; apply_gate.py is a stub until Task 17)
 Task 17: complete (tests: pytest -q tests/test_apply_gate.py tests/test_service.py -> 20 passed)
+Task 18: complete (tests: pytest -q tests/test_restart.py -> 2 passed; separate OS processes propose/approve/approve, apply log has 1 line)
