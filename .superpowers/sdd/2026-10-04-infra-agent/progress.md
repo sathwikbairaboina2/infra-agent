@@ -19,3 +19,4 @@ Task 2: complete (tests: pytest tests/test_config.py tests/test_hashing.py -> 10
 Task 3: complete (tests: scripts/dev.sh uv run pytest -q -> 33 passed total)
 Task 4: complete (tests: pytest -q -> all passed)
 Task 5: complete (tests: pytest -q -> 57 passed total)
+Task 6: complete (tests: pytest -q -> 79 passed total; red seen)
