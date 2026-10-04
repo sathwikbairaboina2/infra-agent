@@ -24,3 +24,12 @@ RUN mkdir -p /opt/terraform/plugin-cache \
  && terraform init -backend=false -input=false >/dev/null \
  && rm -rf /tmp/mirror
 WORKDIR /work
+
+FROM dev AS runtime
+WORKDIR /app
+COPY pyproject.toml uv.lock README.md LICENSE ./
+COPY src ./src
+COPY examples ./examples
+RUN uv sync --frozen --no-dev && ln -s /app/.venv/bin/infra-agent /usr/local/bin/infra-agent
+ENV INFRA_AGENT_HOME=/data
+ENTRYPOINT ["infra-agent"]

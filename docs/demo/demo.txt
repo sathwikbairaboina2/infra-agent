@@ -1,0 +1,32 @@
+$ infra-agent propose --repo examples/tf-basic --proposer scripted --script examples/demo/ssh-then-private.yaml --name-prefix demo25888 "let me SSH into the web servers"
+(exit code 2: paused for approval)
+$ uv run infra-agent review r-20261004T010222-e986af
+run r-20261004T010222-e986af · attempt 2/3 · decision: ALLOW
+refused attempts:
+  #1 policy  no_public_ingress_admin_ports: aws_vpc_security_group_ingress_rule.ssh: 0.0.0.0/0 can reach port 22
+changes: +4 ~0 -0 ±0
+diff --git a/ssh.tf b/ssh.tf
+new file mode 100644
+index 0000000..4678289
+--- /dev/null
++++ b/ssh.tf
+@@ -0,0 +1,12 @@
++resource "aws_vpc_security_group_ingress_rule" "ssh" {
++  security_group_id = aws_security_group.web.id
++  cidr_ipv4         = "10.0.0.0/8"
++  from_port         = 22
++  to_port           = 22
++  ip_protocol       = "tcp"
++
++  tags = {
++    owner       = "platform"
++    cost-center = "1234"
++  }
++}
+plan sha256: 2e34280f86f23b44dbb18c88fff9f61a4e717f2810df332869d3c2294632605a
+approve with: infra-agent approve r-20261004T010222-e986af --plan-sha 2e34280f86f23b44dbb18c88fff9f61a4e717f2810df332869d3c2294632605a
+$ uv run infra-agent approve r-20261004T010222-e986af --plan-sha 2e34280f86f23b44dbb18c88fff9f61a4e717f2810df332869d3c2294632605a --approver demo-human
+run r-20261004T010222-e986af: applied (exit 0): applied
+$ uv run infra-agent audit verify r-20261004T010222-e986af
+audit chain ok
+7 events
