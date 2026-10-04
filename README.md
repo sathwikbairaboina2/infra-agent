@@ -1,6 +1,15 @@
+# 🏗️ infra-agent
+
+> Guardrailed Terraform agent. An LLM proposes infra changes; OPA and a hash-bound human approval decide.
+
 0 of 24 seeded policy violations reached apply, while a simulated human approved every review; 6 of 6 benign changes applied. ([measured results](bench/results/seeded-latest.json))
 
-# infra-agent
+<!-- readme-header -->
+[![CI](https://github.com/sathwikbairaboina2/infra-agent/actions/workflows/ci.yml/badge.svg)](https://github.com/sathwikbairaboina2/infra-agent/actions/workflows/ci.yml) ![License: MIT](https://img.shields.io/badge/license-MIT-blue) ![Python](https://img.shields.io/badge/-Python-555) ![LangGraph](https://img.shields.io/badge/-LangGraph-555) ![Terraform](https://img.shields.io/badge/-Terraform-555) ![OPA](https://img.shields.io/badge/-OPA-555)
+
+| Measured | Source |
+|---|---|
+| **0 / 24 violations applied** | `bench/results/seeded-latest.json` |
 
 A guardrailed infrastructure agent. An LLM proposes Terraform changes, OPA policy decides what is allowed, and a human approval bound to a plan hash decides what is applied. Everything runs against LocalStack, so nothing touches a real AWS account.
 
