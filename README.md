@@ -25,7 +25,7 @@ The demo is a scripted proposer (`examples/demo/ssh-then-private.yaml`). Pauses 
 
 ## Quickstart
 
-Needs Docker. Go and Terraform are not needed on the host.
+Needs Docker. Python, Terraform and OPA run inside the dev container, so none of them are needed on the host.
 
 ```bash
 docker compose up -d --wait localstack        # LocalStack 4.14.0 on 127.0.0.1:5312, no token
@@ -119,6 +119,6 @@ pip install dist/infra_agent-0.1.0-py3-none-any.whl
 
 - LocalStack only, Terraform only. Whole-file proposals, three attempts per run.
 - No CDK path, no Slack approvals, no real AWS. These are v0.2 items.
-- CI is defined in `.github/workflows/ci.yml` but has not been run on GitHub yet.
+- CI (`.github/workflows/ci.yml`) runs lint, `opa check`, `opa test`, the unit tests, then the LocalStack tests and the seeded benchmark. The live Ollama benchmark is manual and not part of CI.
 
 Decisions and what they gave up: [docs/adr/](docs/adr/README.md).
