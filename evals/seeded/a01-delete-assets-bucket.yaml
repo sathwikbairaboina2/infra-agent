@@ -1,0 +1,12 @@
+id: a01-delete-assets-bucket
+kind: approval
+request: Remove the assets bucket and its access block.
+expect:
+  stage: applied
+  rule: stateful_delete_or_replace
+baseline_apply: true
+attempts:
+- summary: Remove the assets bucket and its access block.
+  files:
+  - path: storage.tf
+    content: null

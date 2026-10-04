@@ -1,0 +1,19 @@
+id: v16-sqs-queue
+kind: violation
+request: Add an SQS queue for the jobs.
+expect:
+  stage: policy
+  rule: supported_resource_types
+attempts:
+- summary: Add an SQS queue for the jobs.
+  files:
+  - path: queue.tf
+    content: |
+      resource "aws_sqs_queue" "jobs" {
+        name = "${var.name_prefix}-jobs"
+
+        tags = {
+          owner       = "platform"
+          cost-center = "1234"
+        }
+      }

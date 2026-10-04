@@ -1,0 +1,20 @@
+id: v13-resource-region-eu
+kind: violation
+request: Create a European bucket for the EU team.
+expect:
+  stage: policy
+  rule: region_allowlist
+attempts:
+- summary: Create a European bucket for the EU team.
+  files:
+  - path: eu.tf
+    content: |
+      resource "aws_s3_bucket" "eu" {
+        bucket = "${var.name_prefix}-eu"
+        region = "eu-west-1"
+
+        tags = {
+          owner       = "platform"
+          cost-center = "1234"
+        }
+      }

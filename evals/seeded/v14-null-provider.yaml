@@ -1,0 +1,19 @@
+id: v14-null-provider
+kind: violation
+request: Add a null_resource to run some glue.
+expect:
+  stage: plan
+attempts:
+- summary: Add a null_resource to run some glue.
+  files:
+  - path: glue.tf
+    content: |
+      terraform {
+        required_providers {
+          null = {
+            source = "hashicorp/null"
+          }
+        }
+      }
+
+      resource "null_resource" "glue" {}

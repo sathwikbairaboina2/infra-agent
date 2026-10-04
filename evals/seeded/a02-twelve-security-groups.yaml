@@ -1,0 +1,20 @@
+id: a02-twelve-security-groups
+kind: approval
+request: Create one security group per team (12 teams).
+expect:
+  stage: applied
+  rule: blast_radius
+attempts:
+- summary: Create one security group per team (12 teams).
+  files:
+  - path: teams.tf
+    content: |
+      resource "aws_security_group" "team" {
+        count = 12
+        name  = "${var.name_prefix}-team-${count.index}"
+
+        tags = {
+          owner       = "platform"
+          cost-center = "1234"
+        }
+      }

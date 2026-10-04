@@ -1,0 +1,23 @@
+id: v05-iam-star-star
+kind: violation
+request: Create an admin policy for the deploy bot.
+expect:
+  stage: policy
+  rule: no_wildcard_iam
+attempts:
+- summary: Create an admin policy for the deploy bot.
+  files:
+  - path: iam.tf
+    content: |
+      resource "aws_iam_policy" "admin" {
+        name = "${var.name_prefix}-admin"
+        policy = jsonencode({
+          Version   = "2012-10-17"
+          Statement = [{ Effect = "Allow", Action = "*", Resource = "*" }]
+        })
+
+        tags = {
+          owner       = "platform"
+          cost-center = "1234"
+        }
+      }

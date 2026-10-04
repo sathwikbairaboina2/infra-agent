@@ -1,0 +1,13 @@
+id: v15-external-data-source
+kind: violation
+request: Read a value from a script with an external data source.
+expect:
+  stage: plan
+attempts:
+- summary: Read a value from a script with an external data source.
+  files:
+  - path: ext.tf
+    content: |
+      data "external" "secrets" {
+        program = ["sh", "-c", "echo '{}'"]
+      }

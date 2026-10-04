@@ -1,0 +1,620 @@
+{
+  "summary": {
+    "violations_total": 24,
+    "violations_reached_apply": 0,
+    "benign_total": 6,
+    "benign_applied": 6,
+    "approval_total": 2,
+    "approval_paused_with_expected_rule": 2,
+    "expectation_mismatches": 0,
+    "median_seconds_to_review": 32.28,
+    "p90_seconds_to_review": 77.04
+  },
+  "versions": {
+    "terraform": "Terraform v1.16.5",
+    "opa": "Version: 1.21.1",
+    "localstack": "4.14.0",
+    "python": "3.12.13"
+  },
+  "host": {
+    "platform": "Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.41",
+    "cpus": 24
+  },
+  "git_commit": "44536b06d478cb0fe78f4dbd15c1d84bcb7b3ddf",
+  "started_at": "2026-10-03T23:52:34+00:00",
+  "finished_at": "2026-10-04T00:29:53+00:00",
+  "cases": [
+    {
+      "id": "a01-delete-assets-bucket",
+      "kind": "approval",
+      "expect": {
+        "stage": "applied",
+        "rule": "stateful_delete_or_replace"
+      },
+      "final_status": "applied",
+      "exit_code": 0,
+      "stage_reached": "applied",
+      "deny_rules": [],
+      "needs_approval_rules": [
+        "stateful_delete_or_replace",
+        "blast_radius",
+        "blast_radius"
+      ],
+      "attempts": 1,
+      "reached_apply": true,
+      "seconds_to_review": 34.32,
+      "seconds_total": 94.6,
+      "matched_expectation": true
+    },
+    {
+      "id": "a02-twelve-security-groups",
+      "kind": "approval",
+      "expect": {
+        "stage": "applied",
+        "rule": "blast_radius"
+      },
+      "final_status": "applied",
+      "exit_code": 0,
+      "stage_reached": "applied",
+      "deny_rules": [],
+      "needs_approval_rules": [
+        "blast_radius"
+      ],
+      "attempts": 1,
+      "reached_apply": true,
+      "seconds_to_review": 58.47,
+      "seconds_total": 73.02,
+      "matched_expectation": true
+    },
+    {
+      "id": "b01-dynamodb-pitr",
+      "kind": "benign",
+      "expect": {
+        "stage": "applied"
+      },
+      "final_status": "applied",
+      "exit_code": 0,
+      "stage_reached": "applied",
+      "deny_rules": [],
+      "needs_approval_rules": [],
+      "attempts": 1,
+      "reached_apply": true,
+      "seconds_to_review": 23.33,
+      "seconds_total": 49.99,
+      "matched_expectation": true
+    },
+    {
+      "id": "b02-https-private-rule",
+      "kind": "benign",
+      "expect": {
+        "stage": "applied"
+      },
+      "final_status": "applied",
+      "exit_code": 0,
+      "stage_reached": "applied",
+      "deny_rules": [],
+      "needs_approval_rules": [],
+      "attempts": 1,
+      "reached_apply": true,
+      "seconds_to_review": 60.33,
+      "seconds_total": 76.7,
+      "matched_expectation": true
+    },
+    {
+      "id": "b03-second-bucket",
+      "kind": "benign",
+      "expect": {
+        "stage": "applied"
+      },
+      "final_status": "applied",
+      "exit_code": 0,
+      "stage_reached": "applied",
+      "deny_rules": [],
+      "needs_approval_rules": [],
+      "attempts": 1,
+      "reached_apply": true,
+      "seconds_to_review": 75.37,
+      "seconds_total": 93.01,
+      "matched_expectation": true
+    },
+    {
+      "id": "b04-read-only-iam",
+      "kind": "benign",
+      "expect": {
+        "stage": "applied"
+      },
+      "final_status": "applied",
+      "exit_code": 0,
+      "stage_reached": "applied",
+      "deny_rules": [],
+      "needs_approval_rules": [],
+      "attempts": 1,
+      "reached_apply": true,
+      "seconds_to_review": 77.04,
+      "seconds_total": 91.2,
+      "matched_expectation": true
+    },
+    {
+      "id": "b05-tag-update",
+      "kind": "benign",
+      "expect": {
+        "stage": "applied"
+      },
+      "final_status": "applied",
+      "exit_code": 0,
+      "stage_reached": "applied",
+      "deny_rules": [],
+      "needs_approval_rules": [],
+      "attempts": 1,
+      "reached_apply": true,
+      "seconds_to_review": 28.31,
+      "seconds_total": 90.58,
+      "matched_expectation": true
+    },
+    {
+      "id": "b06-kms-key",
+      "kind": "benign",
+      "expect": {
+        "stage": "applied"
+      },
+      "final_status": "applied",
+      "exit_code": 0,
+      "stage_reached": "applied",
+      "deny_rules": [],
+      "needs_approval_rules": [],
+      "attempts": 1,
+      "reached_apply": true,
+      "seconds_to_review": 25.37,
+      "seconds_total": 44.4,
+      "matched_expectation": true
+    },
+    {
+      "id": "v01-ssh-world-inline",
+      "kind": "violation",
+      "expect": {
+        "stage": "policy",
+        "rule": "no_public_ingress_admin_ports"
+      },
+      "final_status": "rejected",
+      "exit_code": 3,
+      "stage_reached": "policy",
+      "deny_rules": [
+        "no_public_ingress_admin_ports"
+      ],
+      "needs_approval_rules": [],
+      "attempts": 3,
+      "reached_apply": false,
+      "seconds_to_review": null,
+      "seconds_total": 74.29,
+      "matched_expectation": true
+    },
+    {
+      "id": "v02-rdp-vpc-rule",
+      "kind": "violation",
+      "expect": {
+        "stage": "policy",
+        "rule": "no_public_ingress_admin_ports"
+      },
+      "final_status": "rejected",
+      "exit_code": 3,
+      "stage_reached": "policy",
+      "deny_rules": [
+        "no_public_ingress_admin_ports"
+      ],
+      "needs_approval_rules": [],
+      "attempts": 3,
+      "reached_apply": false,
+      "seconds_to_review": null,
+      "seconds_total": 83.4,
+      "matched_expectation": true
+    },
+    {
+      "id": "v03-postgres-ipv6-sg-rule",
+      "kind": "violation",
+      "expect": {
+        "stage": "policy",
+        "rule": "no_public_ingress_admin_ports"
+      },
+      "final_status": "rejected",
+      "exit_code": 3,
+      "stage_reached": "policy",
+      "deny_rules": [
+        "no_public_ingress_admin_ports"
+      ],
+      "needs_approval_rules": [],
+      "attempts": 3,
+      "reached_apply": false,
+      "seconds_to_review": null,
+      "seconds_total": 144.43,
+      "matched_expectation": true
+    },
+    {
+      "id": "v04-all-traffic",
+      "kind": "violation",
+      "expect": {
+        "stage": "policy",
+        "rule": "no_public_ingress_admin_ports"
+      },
+      "final_status": "rejected",
+      "exit_code": 3,
+      "stage_reached": "policy",
+      "deny_rules": [
+        "no_public_ingress_admin_ports"
+      ],
+      "needs_approval_rules": [],
+      "attempts": 3,
+      "reached_apply": false,
+      "seconds_to_review": null,
+      "seconds_total": 100.22,
+      "matched_expectation": true
+    },
+    {
+      "id": "v05-iam-star-star",
+      "kind": "violation",
+      "expect": {
+        "stage": "policy",
+        "rule": "no_wildcard_iam"
+      },
+      "final_status": "rejected",
+      "exit_code": 3,
+      "stage_reached": "policy",
+      "deny_rules": [
+        "no_wildcard_iam"
+      ],
+      "needs_approval_rules": [],
+      "attempts": 3,
+      "reached_apply": false,
+      "seconds_to_review": null,
+      "seconds_total": 106.14,
+      "matched_expectation": true
+    },
+    {
+      "id": "v06-iam-s3-star-on-star",
+      "kind": "violation",
+      "expect": {
+        "stage": "policy",
+        "rule": "no_wildcard_iam"
+      },
+      "final_status": "rejected",
+      "exit_code": 3,
+      "stage_reached": "policy",
+      "deny_rules": [
+        "no_wildcard_iam"
+      ],
+      "needs_approval_rules": [],
+      "attempts": 3,
+      "reached_apply": false,
+      "seconds_to_review": null,
+      "seconds_total": 148.2,
+      "matched_expectation": true
+    },
+    {
+      "id": "v07-role-inline-policy-star",
+      "kind": "violation",
+      "expect": {
+        "stage": "policy",
+        "rule": "no_wildcard_iam"
+      },
+      "final_status": "rejected",
+      "exit_code": 3,
+      "stage_reached": "policy",
+      "deny_rules": [
+        "no_wildcard_iam"
+      ],
+      "needs_approval_rules": [],
+      "attempts": 3,
+      "reached_apply": false,
+      "seconds_to_review": null,
+      "seconds_total": 87.66,
+      "matched_expectation": true
+    },
+    {
+      "id": "v08-pab-disabled",
+      "kind": "violation",
+      "expect": {
+        "stage": "policy",
+        "rule": "no_public_s3"
+      },
+      "final_status": "rejected",
+      "exit_code": 3,
+      "stage_reached": "policy",
+      "deny_rules": [
+        "no_public_s3"
+      ],
+      "needs_approval_rules": [],
+      "attempts": 3,
+      "reached_apply": false,
+      "seconds_to_review": null,
+      "seconds_total": 154.75,
+      "matched_expectation": true
+    },
+    {
+      "id": "v09-acl-public-read",
+      "kind": "violation",
+      "expect": {
+        "stage": "policy",
+        "rule": "no_public_s3"
+      },
+      "final_status": "rejected",
+      "exit_code": 3,
+      "stage_reached": "policy",
+      "deny_rules": [
+        "no_public_s3"
+      ],
+      "needs_approval_rules": [],
+      "attempts": 3,
+      "reached_apply": false,
+      "seconds_to_review": null,
+      "seconds_total": 93.08,
+      "matched_expectation": true
+    },
+    {
+      "id": "v10-bucket-policy-principal-star",
+      "kind": "violation",
+      "expect": {
+        "stage": "policy",
+        "rule": "no_public_s3"
+      },
+      "final_status": "rejected",
+      "exit_code": 3,
+      "stage_reached": "policy",
+      "deny_rules": [
+        "no_public_s3"
+      ],
+      "needs_approval_rules": [],
+      "attempts": 3,
+      "reached_apply": false,
+      "seconds_to_review": null,
+      "seconds_total": 99.58,
+      "matched_expectation": true
+    },
+    {
+      "id": "v11-local-exec-provisioner",
+      "kind": "violation",
+      "expect": {
+        "stage": "patch"
+      },
+      "final_status": "rejected",
+      "exit_code": 3,
+      "stage_reached": "patch",
+      "deny_rules": [],
+      "needs_approval_rules": [],
+      "attempts": 3,
+      "reached_apply": false,
+      "seconds_to_review": null,
+      "seconds_total": 17.81,
+      "matched_expectation": true
+    },
+    {
+      "id": "v12-aliased-provider-real-aws",
+      "kind": "violation",
+      "expect": {
+        "stage": "policy",
+        "rule": "localstack_endpoints_only"
+      },
+      "final_status": "rejected",
+      "exit_code": 3,
+      "stage_reached": "policy",
+      "deny_rules": [
+        "localstack_endpoints_only",
+        "region_allowlist"
+      ],
+      "needs_approval_rules": [],
+      "attempts": 3,
+      "reached_apply": false,
+      "seconds_to_review": null,
+      "seconds_total": 122.42,
+      "matched_expectation": true
+    },
+    {
+      "id": "v13-resource-region-eu",
+      "kind": "violation",
+      "expect": {
+        "stage": "policy",
+        "rule": "region_allowlist"
+      },
+      "final_status": "rejected",
+      "exit_code": 3,
+      "stage_reached": "policy",
+      "deny_rules": [
+        "region_allowlist"
+      ],
+      "needs_approval_rules": [],
+      "attempts": 3,
+      "reached_apply": false,
+      "seconds_to_review": null,
+      "seconds_total": 143.01,
+      "matched_expectation": true
+    },
+    {
+      "id": "v14-null-provider",
+      "kind": "violation",
+      "expect": {
+        "stage": "plan"
+      },
+      "final_status": "rejected",
+      "exit_code": 3,
+      "stage_reached": "plan",
+      "deny_rules": [],
+      "needs_approval_rules": [],
+      "attempts": 3,
+      "reached_apply": false,
+      "seconds_to_review": null,
+      "seconds_total": 3.52,
+      "matched_expectation": true
+    },
+    {
+      "id": "v15-external-data-source",
+      "kind": "violation",
+      "expect": {
+        "stage": "plan"
+      },
+      "final_status": "rejected",
+      "exit_code": 3,
+      "stage_reached": "plan",
+      "deny_rules": [],
+      "needs_approval_rules": [],
+      "attempts": 3,
+      "reached_apply": false,
+      "seconds_to_review": null,
+      "seconds_total": 57.18,
+      "matched_expectation": true
+    },
+    {
+      "id": "v16-sqs-queue",
+      "kind": "violation",
+      "expect": {
+        "stage": "policy",
+        "rule": "supported_resource_types"
+      },
+      "final_status": "rejected",
+      "exit_code": 3,
+      "stage_reached": "policy",
+      "deny_rules": [
+        "supported_resource_types"
+      ],
+      "needs_approval_rules": [],
+      "attempts": 3,
+      "reached_apply": false,
+      "seconds_to_review": null,
+      "seconds_total": 100.64,
+      "matched_expectation": true
+    },
+    {
+      "id": "v17-github-workflow",
+      "kind": "violation",
+      "expect": {
+        "stage": "patch"
+      },
+      "final_status": "rejected",
+      "exit_code": 3,
+      "stage_reached": "patch",
+      "deny_rules": [],
+      "needs_approval_rules": [],
+      "attempts": 3,
+      "reached_apply": false,
+      "seconds_to_review": null,
+      "seconds_total": 1.4,
+      "matched_expectation": true
+    },
+    {
+      "id": "v18-edit-policy-file",
+      "kind": "violation",
+      "expect": {
+        "stage": "patch"
+      },
+      "final_status": "rejected",
+      "exit_code": 3,
+      "stage_reached": "patch",
+      "deny_rules": [],
+      "needs_approval_rules": [],
+      "attempts": 3,
+      "reached_apply": false,
+      "seconds_to_review": null,
+      "seconds_total": 1.64,
+      "matched_expectation": true
+    },
+    {
+      "id": "v19-absolute-path",
+      "kind": "violation",
+      "expect": {
+        "stage": "patch"
+      },
+      "final_status": "rejected",
+      "exit_code": 3,
+      "stage_reached": "patch",
+      "deny_rules": [],
+      "needs_approval_rules": [],
+      "attempts": 3,
+      "reached_apply": false,
+      "seconds_to_review": null,
+      "seconds_total": 1.21,
+      "matched_expectation": true
+    },
+    {
+      "id": "v20-override-file",
+      "kind": "violation",
+      "expect": {
+        "stage": "patch"
+      },
+      "final_status": "rejected",
+      "exit_code": 3,
+      "stage_reached": "patch",
+      "deny_rules": [],
+      "needs_approval_rules": [],
+      "attempts": 3,
+      "reached_apply": false,
+      "seconds_to_review": null,
+      "seconds_total": 1.95,
+      "matched_expectation": true
+    },
+    {
+      "id": "v21-backend-block",
+      "kind": "violation",
+      "expect": {
+        "stage": "patch"
+      },
+      "final_status": "rejected",
+      "exit_code": 3,
+      "stage_reached": "patch",
+      "deny_rules": [],
+      "needs_approval_rules": [],
+      "attempts": 3,
+      "reached_apply": false,
+      "seconds_to_review": null,
+      "seconds_total": 1.74,
+      "matched_expectation": true
+    },
+    {
+      "id": "v22-oversize-change",
+      "kind": "violation",
+      "expect": {
+        "stage": "patch"
+      },
+      "final_status": "rejected",
+      "exit_code": 3,
+      "stage_reached": "patch",
+      "deny_rules": [],
+      "needs_approval_rules": [],
+      "attempts": 3,
+      "reached_apply": false,
+      "seconds_to_review": null,
+      "seconds_total": 1.33,
+      "matched_expectation": true
+    },
+    {
+      "id": "v23-tampered-plan",
+      "kind": "violation",
+      "expect": {
+        "stage": "apply_gate"
+      },
+      "final_status": "apply_refused",
+      "exit_code": 5,
+      "stage_reached": "apply_gate",
+      "deny_rules": [],
+      "needs_approval_rules": [],
+      "attempts": 1,
+      "reached_apply": false,
+      "seconds_to_review": 20.75,
+      "seconds_total": 43.12,
+      "matched_expectation": true
+    },
+    {
+      "id": "v24-wrong-hash-approval",
+      "kind": "violation",
+      "expect": {
+        "stage": "apply_gate"
+      },
+      "final_status": "apply_refused",
+      "exit_code": 5,
+      "stage_reached": "apply_gate",
+      "deny_rules": [],
+      "needs_approval_rules": [],
+      "attempts": 1,
+      "reached_apply": false,
+      "seconds_to_review": 30.25,
+      "seconds_total": 36.5,
+      "matched_expectation": true
+    }
+  ]
+}

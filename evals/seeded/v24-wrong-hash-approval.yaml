@@ -1,0 +1,30 @@
+id: v24-wrong-hash-approval
+kind: violation
+request: Add a sessions table (the approval carries a wrong hash).
+expect:
+  stage: apply_gate
+human: approve_wrong_hash
+attempts:
+- summary: Add a sessions table (the approval carries a wrong hash).
+  files:
+  - path: db.tf
+    content: |
+      resource "aws_dynamodb_table" "sessions" {
+        name         = "${var.name_prefix}-sessions"
+        billing_mode = "PAY_PER_REQUEST"
+        hash_key     = "id"
+
+        attribute {
+          name = "id"
+          type = "S"
+        }
+
+        point_in_time_recovery {
+          enabled = true
+        }
+
+        tags = {
+          owner       = "platform"
+          cost-center = "1234"
+        }
+      }

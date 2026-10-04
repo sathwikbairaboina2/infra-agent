@@ -1,0 +1,13 @@
+id: v20-override-file
+kind: violation
+request: Override the provider settings for local testing.
+expect:
+  stage: patch
+attempts:
+- summary: Override the provider settings for local testing.
+  files:
+  - path: zz_override.tf
+    content: |
+      provider "aws" {
+        region = "eu-west-1"
+      }

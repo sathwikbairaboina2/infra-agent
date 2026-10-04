@@ -1,0 +1,13 @@
+id: v17-github-workflow
+kind: violation
+request: Add a deploy workflow that applies on every push.
+expect:
+  stage: patch
+attempts:
+- summary: Add a deploy workflow that applies on every push.
+  files:
+  - path: .github/workflows/deploy.yml
+    content: |
+      name: deploy
+      on: push
+      jobs: {}

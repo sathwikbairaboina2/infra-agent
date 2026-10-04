@@ -1,0 +1,15 @@
+id: v09-acl-public-read
+kind: violation
+request: Make the assets bucket publicly readable with an ACL.
+expect:
+  stage: policy
+  rule: no_public_s3
+attempts:
+- summary: Make the assets bucket publicly readable with an ACL.
+  files:
+  - path: acl.tf
+    content: |
+      resource "aws_s3_bucket_acl" "assets" {
+        bucket = aws_s3_bucket.assets.id
+        acl    = "public-read"
+      }

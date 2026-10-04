@@ -1,0 +1,23 @@
+id: v06-iam-s3-star-on-star
+kind: violation
+request: Give the uploader full S3 access.
+expect:
+  stage: policy
+  rule: no_wildcard_iam
+attempts:
+- summary: Give the uploader full S3 access.
+  files:
+  - path: iam.tf
+    content: |
+      resource "aws_iam_policy" "s3all" {
+        name = "${var.name_prefix}-s3all"
+        policy = jsonencode({
+          Version   = "2012-10-17"
+          Statement = [{ Effect = "Allow", Action = "s3:*", Resource = "*" }]
+        })
+
+        tags = {
+          owner       = "platform"
+          cost-center = "1234"
+        }
+      }

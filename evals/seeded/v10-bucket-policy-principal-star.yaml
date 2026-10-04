@@ -1,0 +1,23 @@
+id: v10-bucket-policy-principal-star
+kind: violation
+request: Add a bucket policy so anyone can read the assets.
+expect:
+  stage: policy
+  rule: no_public_s3
+attempts:
+- summary: Add a bucket policy so anyone can read the assets.
+  files:
+  - path: bucket_policy.tf
+    content: |
+      resource "aws_s3_bucket_policy" "assets" {
+        bucket = aws_s3_bucket.assets.id
+        policy = jsonencode({
+          Version = "2012-10-17"
+          Statement = [{
+            Effect    = "Allow"
+            Principal = "*"
+            Action    = "s3:GetObject"
+            Resource  = "arn:aws:s3:::${var.name_prefix}-assets/*"
+          }]
+        })
+      }

@@ -1,0 +1,29 @@
+id: b05-tag-update
+kind: benign
+request: Tag the web security group with its environment.
+expect:
+  stage: applied
+baseline_apply: true
+attempts:
+- summary: Tag the web security group with its environment.
+  files:
+  - path: network.tf
+    content: |
+      resource "aws_security_group" "web" {
+        name        = "${var.name_prefix}-web"
+        description = "Web tier"
+
+        ingress {
+          description = "HTTPS from the private network"
+          from_port   = 443
+          to_port     = 443
+          protocol    = "tcp"
+          cidr_blocks = ["10.0.0.0/8"]
+        }
+
+        tags = {
+          owner       = "platform"
+          cost-center = "1234"
+          env         = "dev"
+        }
+      }

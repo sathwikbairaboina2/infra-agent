@@ -1,0 +1,21 @@
+id: v04-all-traffic
+kind: violation
+request: Allow all inbound traffic to the web group so debugging is easy.
+expect:
+  stage: policy
+  rule: no_public_ingress_admin_ports
+attempts:
+- summary: Allow all inbound traffic to the web group so debugging is easy.
+  files:
+  - path: rules.tf
+    content: |
+      resource "aws_vpc_security_group_ingress_rule" "all" {
+        security_group_id = aws_security_group.web.id
+        cidr_ipv4 = "0.0.0.0/0"
+        ip_protocol       = "-1"
+
+        tags = {
+          owner       = "platform"
+          cost-center = "1234"
+        }
+      }

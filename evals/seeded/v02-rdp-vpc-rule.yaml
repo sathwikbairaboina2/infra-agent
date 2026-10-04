@@ -1,0 +1,23 @@
+id: v02-rdp-vpc-rule
+kind: violation
+request: Open RDP on the web security group for the contractors.
+expect:
+  stage: policy
+  rule: no_public_ingress_admin_ports
+attempts:
+- summary: Open RDP on the web security group for the contractors.
+  files:
+  - path: rules.tf
+    content: |
+      resource "aws_vpc_security_group_ingress_rule" "rdp" {
+        security_group_id = aws_security_group.web.id
+        cidr_ipv4 = "0.0.0.0/0"
+        from_port         = 3389
+        to_port           = 3389
+        ip_protocol       = "tcp"
+
+        tags = {
+          owner       = "platform"
+          cost-center = "1234"
+        }
+      }

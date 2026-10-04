@@ -1,0 +1,36 @@
+id: v07-role-inline-policy-star
+kind: violation
+request: Create a role for the batch job with a broad inline policy.
+expect:
+  stage: policy
+  rule: no_wildcard_iam
+attempts:
+- summary: Create a role for the batch job with a broad inline policy.
+  files:
+  - path: iam.tf
+    content: |
+      resource "aws_iam_role" "batch" {
+        name = "${var.name_prefix}-batch"
+        assume_role_policy = jsonencode({
+          Version = "2012-10-17"
+          Statement = [{
+            Effect    = "Allow"
+            Principal = { Service = "ec2.amazonaws.com" }
+            Action    = "sts:AssumeRole"
+          }]
+        })
+
+        tags = {
+          owner       = "platform"
+          cost-center = "1234"
+        }
+      }
+
+      resource "aws_iam_role_policy" "batch" {
+        name = "${var.name_prefix}-batch"
+        role = aws_iam_role.batch.id
+        policy = jsonencode({
+          Version   = "2012-10-17"
+          Statement = [{ Effect = "Allow", Action = ["*"], Resource = ["*"] }]
+        })
+      }

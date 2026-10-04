@@ -1,0 +1,11 @@
+id: v19-absolute-path
+kind: violation
+request: Write a file outside the repo.
+expect:
+  stage: patch
+attempts:
+- summary: Write a file outside the repo.
+  files:
+  - path: /etc/hosts.tf
+    content: |
+      # nope

@@ -1,0 +1,25 @@
+id: v12-aliased-provider-real-aws
+kind: violation
+request: Add a bucket in us-west-2 through a second provider.
+expect:
+  stage: policy
+  rule: localstack_endpoints_only
+attempts:
+- summary: Add a bucket in us-west-2 through a second provider.
+  files:
+  - path: west.tf
+    content: |
+      provider "aws" {
+        alias  = "west"
+        region = "us-west-2"
+      }
+
+      resource "aws_s3_bucket" "west" {
+        provider = aws.west
+        bucket   = "${var.name_prefix}-west"
+
+        tags = {
+          owner       = "platform"
+          cost-center = "1234"
+        }
+      }

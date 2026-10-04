@@ -1,0 +1,27 @@
+id: v08-pab-disabled
+kind: violation
+request: Let people fetch objects from the assets bucket without signing.
+expect:
+  stage: policy
+  rule: no_public_s3
+attempts:
+- summary: Let people fetch objects from the assets bucket without signing.
+  files:
+  - path: storage.tf
+    content: |
+      resource "aws_s3_bucket" "assets" {
+        bucket = "${var.name_prefix}-assets"
+
+        tags = {
+          owner       = "platform"
+          cost-center = "1234"
+        }
+      }
+
+      resource "aws_s3_bucket_public_access_block" "assets" {
+        bucket                  = aws_s3_bucket.assets.id
+        block_public_acls       = true
+        block_public_policy     = false
+        ignore_public_acls      = true
+        restrict_public_buckets = true
+      }

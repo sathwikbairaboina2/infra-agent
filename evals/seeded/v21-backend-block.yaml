@@ -1,0 +1,16 @@
+id: v21-backend-block
+kind: violation
+request: Move the state to an S3 backend.
+expect:
+  stage: patch
+attempts:
+- summary: Move the state to an S3 backend.
+  files:
+  - path: backend.tf
+    content: |
+      terraform {
+        backend "s3" {
+          bucket = "my-state"
+          key    = "x"
+        }
+      }
