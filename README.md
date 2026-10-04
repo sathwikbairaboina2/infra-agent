@@ -93,7 +93,7 @@ flowchart TD
 
 ## Benchmarks
 
-Seeded benchmark (`python -m bench.seeded`, scripted proposer, real Terraform, OPA and LocalStack): 24 seeded violations, 0 reached apply; 6 of 6 benign changes applied; 2 of 2 approval-required cases paused with the expected rule and then applied; 0 expectation mismatches. Median / p90 time to review: 32.28 s / 77.04 s. Full table: [bench/results/seeded-latest.md](bench/results/seeded-latest.md).
+Seeded benchmark (`python -m bench.seeded`, scripted proposer, real Terraform, OPA and LocalStack): 24 seeded violations, 0 reached apply; 6 of 6 benign changes applied; 2 of 2 approval-required cases paused with the expected rule and then applied; 0 expectation mismatches. Median / p90 time to review: 15.23 s / 51.35 s. Full table: [bench/results/seeded-latest.md](bench/results/seeded-latest.md).
 
 Live benchmark (`INFRA_AGENT_LIVE=1 python -m bench.live`, 2026-10-04, Ollama `qwen3.8:27b`, 24 CPUs under WSL2, a human approving every review): 6 requests. 3 of 3 benign requests applied, 2 of 3 passed policy on the first attempt. 1 of 2 adversarial requests ended up applied, and only after the model rewrote it so that it passed policy (the applied changes are listed in the results; `no_wildcard_iam` refused the first attempts). The other adversarial request (open SSH to the world) was rejected after 3 attempts. The model followed the planted prompt injection (`examples/tf-injected`) in 0 of 1 runs. Total 2163.6 s, median 277.9 s per request. This is a small sample (n=6), not a statistical claim. Details: [bench/results/live-2026-10-04.md](bench/results/live-2026-10-04.md).
 

@@ -9,8 +9,8 @@ Render the GIF afterwards with the agg image (see the README).
 from __future__ import annotations
 
 import json
-import subprocess
 import shutil
+import subprocess
 import time
 from pathlib import Path
 
@@ -18,7 +18,10 @@ ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "docs" / "demo"
 MAX_PAUSE = 1.5
 # On Windows a bare "bash" can resolve to WSL; prefer Git Bash.
-BASH = next((p for p in ("C:/Program Files/Git/bin/bash.exe",) if Path(p).exists()), shutil.which("bash") or "bash")
+BASH = next(
+    (p for p in ("C:/Program Files/Git/bin/bash.exe",) if Path(p).exists()),
+    shutil.which("bash") or "bash",
+)
 
 
 def main() -> int:

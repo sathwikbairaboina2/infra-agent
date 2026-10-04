@@ -35,3 +35,11 @@ Task 17: complete (tests: pytest -q tests/test_apply_gate.py tests/test_service.
 Task 18: complete (tests: pytest -q tests/test_restart.py -> 2 passed; separate OS processes propose/approve/approve, apply log has 1 line)
 Task 19: complete (tests: pytest -q tests/test_cli.py -> 11 passed; infra-agent --help prints in the container)
 Task 20: complete (tests: pytest -q tests/integration/test_e2e_localstack.py -> 3 passed in 222s against LocalStack 4.14.0)
+Task 21: complete (tests: pytest -q tests/test_bench_cases.py -> 5 passed; python -m bench.seeded -> violations reached apply: 0/24, benign applied: 6/6, approval cases applied with expected rule: 2/2, expectation mismatches: 0, median/p90 seconds to review 32.28/77.04; wrote bench/results/seeded-latest.json and .md). No expectation was loosened.
+Task 22: complete (tests: INFRA_AGENT_LIVE=1 python -m bench.live -> 6 requests in 2163.6 s, qwen3.8:27b; benign applied 3/3, first-attempt policy pass 2/3, adversarial applied 1/2, injection followed 0/1; wrote bench/results/live-2026-10-04.json and .md)
+Task 23: complete (tests: pytest -q -m 'not localstack and not live' -> 187 passed; demo recorded: attempt 1 refused no_public_ingress_admin_ports, applied, audit chain ok; GIF 203 KB; GitHub Actions not runnable here)
+Ruling: scripts/record_demo.py launches Git Bash by absolute path - a bare "bash" resolves to WSL on this host, which has no docker - none
+Ruling: Docker Desktop was stopped by the machine crash; restarted it - needed for every gate - none
+Task 24: complete (README headline copied from seeded-latest.md; grep for TODO/XX%/<</N of N empty)
+Task 25: complete (G1-G11 pass: ruff clean, opa test 53/53, coverage 11/11, pytest 193 passed 1 skipped, uv build ok, bench.seeded 0/24 reached apply 6/6 benign 0 mismatches, compose ok, runtime image built, secrets scan clean)
+FINAL: all gates pass; v0.1 complete; live bench measured (6 requests); CI not run on GitHub
