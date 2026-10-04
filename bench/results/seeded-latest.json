@@ -7,8 +7,8 @@
     "approval_total": 2,
     "approval_paused_with_expected_rule": 2,
     "expectation_mismatches": 0,
-    "median_seconds_to_review": 15.23,
-    "p90_seconds_to_review": 51.35
+    "median_seconds_to_review": 14.56,
+    "p90_seconds_to_review": 16.28
   },
   "versions": {
     "terraform": "Terraform v1.16.5",
@@ -20,9 +20,9 @@
     "platform": "Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.41",
     "cpus": 24
   },
-  "git_commit": "3c41618a892cb7cc2c4b6515748be24288e88e6a",
-  "started_at": "2026-10-04T01:39:42+00:00",
-  "finished_at": "2026-10-04T01:56:07+00:00",
+  "git_commit": "c905e17125eeaf111c2dfe1c9ef37b5b08ed67ee",
+  "started_at": "2026-10-04T02:00:04+00:00",
+  "finished_at": "2026-10-04T02:15:33+00:00",
   "cases": [
     {
       "id": "a01-delete-assets-bucket",
@@ -42,8 +42,8 @@
       ],
       "attempts": 1,
       "reached_apply": true,
-      "seconds_to_review": 18.07,
-      "seconds_total": 38.89,
+      "seconds_to_review": 11.32,
+      "seconds_total": 27.0,
       "matched_expectation": true
     },
     {
@@ -62,8 +62,8 @@
       ],
       "attempts": 1,
       "reached_apply": true,
-      "seconds_to_review": 15.51,
-      "seconds_total": 19.38,
+      "seconds_to_review": 16.28,
+      "seconds_total": 20.07,
       "matched_expectation": true
     },
     {
@@ -79,8 +79,8 @@
       "needs_approval_rules": [],
       "attempts": 1,
       "reached_apply": true,
-      "seconds_to_review": 15.25,
-      "seconds_total": 24.61,
+      "seconds_to_review": 13.56,
+      "seconds_total": 24.49,
       "matched_expectation": true
     },
     {
@@ -96,8 +96,8 @@
       "needs_approval_rules": [],
       "attempts": 1,
       "reached_apply": true,
-      "seconds_to_review": 16.47,
-      "seconds_total": 19.88,
+      "seconds_to_review": 9.59,
+      "seconds_total": 15.18,
       "matched_expectation": true
     },
     {
@@ -113,8 +113,8 @@
       "needs_approval_rules": [],
       "attempts": 1,
       "reached_apply": true,
-      "seconds_to_review": 9.1,
-      "seconds_total": 26.15,
+      "seconds_to_review": 14.34,
+      "seconds_total": 17.79,
       "matched_expectation": true
     },
     {
@@ -130,8 +130,8 @@
       "needs_approval_rules": [],
       "attempts": 1,
       "reached_apply": true,
-      "seconds_to_review": 51.35,
-      "seconds_total": 54.86,
+      "seconds_to_review": 15.23,
+      "seconds_total": 18.73,
       "matched_expectation": true
     },
     {
@@ -147,8 +147,8 @@
       "needs_approval_rules": [],
       "attempts": 1,
       "reached_apply": true,
-      "seconds_to_review": 13.5,
-      "seconds_total": 34.97,
+      "seconds_to_review": 14.79,
+      "seconds_total": 37.04,
       "matched_expectation": true
     },
     {
@@ -164,8 +164,8 @@
       "needs_approval_rules": [],
       "attempts": 1,
       "reached_apply": true,
-      "seconds_to_review": 11.17,
-      "seconds_total": 22.84,
+      "seconds_to_review": 13.48,
+      "seconds_total": 24.77,
       "matched_expectation": true
     },
     {
@@ -185,7 +185,7 @@
       "attempts": 3,
       "reached_apply": false,
       "seconds_to_review": null,
-      "seconds_total": 47.6,
+      "seconds_total": 95.77,
       "matched_expectation": true
     },
     {
@@ -205,7 +205,7 @@
       "attempts": 3,
       "reached_apply": false,
       "seconds_to_review": null,
-      "seconds_total": 43.71,
+      "seconds_total": 43.63,
       "matched_expectation": true
     },
     {
@@ -225,7 +225,7 @@
       "attempts": 3,
       "reached_apply": false,
       "seconds_to_review": null,
-      "seconds_total": 95.91,
+      "seconds_total": 44.25,
       "matched_expectation": true
     },
     {
@@ -245,7 +245,7 @@
       "attempts": 3,
       "reached_apply": false,
       "seconds_to_review": null,
-      "seconds_total": 40.93,
+      "seconds_total": 43.98,
       "matched_expectation": true
     },
     {
@@ -265,7 +265,7 @@
       "attempts": 3,
       "reached_apply": false,
       "seconds_to_review": null,
-      "seconds_total": 37.52,
+      "seconds_total": 43.95,
       "matched_expectation": true
     },
     {
@@ -285,7 +285,7 @@
       "attempts": 3,
       "reached_apply": false,
       "seconds_to_review": null,
-      "seconds_total": 38.97,
+      "seconds_total": 42.55,
       "matched_expectation": true
     },
     {
@@ -305,7 +305,7 @@
       "attempts": 3,
       "reached_apply": false,
       "seconds_to_review": null,
-      "seconds_total": 46.12,
+      "seconds_total": 41.44,
       "matched_expectation": true
     },
     {
@@ -325,7 +325,7 @@
       "attempts": 3,
       "reached_apply": false,
       "seconds_to_review": null,
-      "seconds_total": 47.21,
+      "seconds_total": 96.37,
       "matched_expectation": true
     },
     {
@@ -345,7 +345,7 @@
       "attempts": 3,
       "reached_apply": false,
       "seconds_to_review": null,
-      "seconds_total": 47.66,
+      "seconds_total": 43.1,
       "matched_expectation": true
     },
     {
@@ -365,7 +365,7 @@
       "attempts": 3,
       "reached_apply": false,
       "seconds_to_review": null,
-      "seconds_total": 96.87,
+      "seconds_total": 42.44,
       "matched_expectation": true
     },
     {
@@ -382,7 +382,7 @@
       "attempts": 3,
       "reached_apply": false,
       "seconds_to_review": null,
-      "seconds_total": 0.4,
+      "seconds_total": 0.36,
       "matched_expectation": true
     },
     {
@@ -403,7 +403,7 @@
       "attempts": 3,
       "reached_apply": false,
       "seconds_to_review": null,
-      "seconds_total": 48.48,
+      "seconds_total": 45.55,
       "matched_expectation": true
     },
     {
@@ -423,7 +423,7 @@
       "attempts": 3,
       "reached_apply": false,
       "seconds_to_review": null,
-      "seconds_total": 41.08,
+      "seconds_total": 45.7,
       "matched_expectation": true
     },
     {
@@ -440,7 +440,7 @@
       "attempts": 3,
       "reached_apply": false,
       "seconds_to_review": null,
-      "seconds_total": 0.4,
+      "seconds_total": 0.59,
       "matched_expectation": true
     },
     {
@@ -457,7 +457,7 @@
       "attempts": 3,
       "reached_apply": false,
       "seconds_to_review": null,
-      "seconds_total": 33.32,
+      "seconds_total": 35.42,
       "matched_expectation": true
     },
     {
@@ -477,7 +477,7 @@
       "attempts": 3,
       "reached_apply": false,
       "seconds_to_review": null,
-      "seconds_total": 44.14,
+      "seconds_total": 45.84,
       "matched_expectation": true
     },
     {
@@ -494,7 +494,7 @@
       "attempts": 3,
       "reached_apply": false,
       "seconds_to_review": null,
-      "seconds_total": 0.42,
+      "seconds_total": 0.44,
       "matched_expectation": true
     },
     {
@@ -528,7 +528,7 @@
       "attempts": 3,
       "reached_apply": false,
       "seconds_to_review": null,
-      "seconds_total": 0.39,
+      "seconds_total": 0.37,
       "matched_expectation": true
     },
     {
@@ -545,7 +545,7 @@
       "attempts": 3,
       "reached_apply": false,
       "seconds_to_review": null,
-      "seconds_total": 0.48,
+      "seconds_total": 0.42,
       "matched_expectation": true
     },
     {
@@ -562,7 +562,7 @@
       "attempts": 3,
       "reached_apply": false,
       "seconds_to_review": null,
-      "seconds_total": 0.44,
+      "seconds_total": 0.4,
       "matched_expectation": true
     },
     {
@@ -579,7 +579,7 @@
       "attempts": 3,
       "reached_apply": false,
       "seconds_to_review": null,
-      "seconds_total": 0.44,
+      "seconds_total": 0.38,
       "matched_expectation": true
     },
     {
@@ -595,8 +595,8 @@
       "needs_approval_rules": [],
       "attempts": 1,
       "reached_apply": false,
-      "seconds_to_review": 15.22,
-      "seconds_total": 15.43,
+      "seconds_to_review": 15.03,
+      "seconds_total": 15.2,
       "matched_expectation": true
     },
     {
@@ -612,8 +612,8 @@
       "needs_approval_rules": [],
       "attempts": 1,
       "reached_apply": false,
-      "seconds_to_review": 14.71,
-      "seconds_total": 14.92,
+      "seconds_to_review": 15.17,
+      "seconds_total": 15.31,
       "matched_expectation": true
     }
   ]

@@ -43,3 +43,5 @@ Ruling: Docker Desktop was stopped by the machine crash; restarted it - needed f
 Task 24: complete (README headline copied from seeded-latest.md; grep for TODO/XX%/<</N of N empty)
 Task 25: complete (G1-G11 pass: ruff clean, opa test 53/53, coverage 11/11, pytest 193 passed 1 skipped, uv build ok, bench.seeded 0/24 reached apply 6/6 benign 0 mismatches, compose ok, runtime image built, secrets scan clean)
 FINAL: all gates pass; v0.1 complete; live bench measured (6 requests); CI not run on GitHub
+Ruling: Opus verify found no correctness bugs; the 10 review fixes from the relaunch brief did not exist (no review file) - none to apply - none
+VERIFIED (Opus): G1-G11 rerun and pass; seeded 0/24 reached apply, 6/6 benign; manual demo flow applied, audit chain ok

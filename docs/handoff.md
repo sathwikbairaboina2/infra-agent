@@ -19,3 +19,13 @@
 **Left:** CDK path and Slack approvals (v0.2). CI has not run on GitHub (not possible here). Opus review, final DEVDOCS pass, board update.
 
 **Verify:** `docker compose up -d --wait localstack`, then the gate commands in `docs/superpowers/plans/2026-10-04-infra-agent.md` Task 25; `docker compose down`.
+
+## 2026-10-04 · Claude (Opus lead, verify) · branch `main`
+
+**Changed:** Reviewed the build against the spec. Read the apply gate, policy wrapper, graph, service, planner and patch guards, and spot-checked the key tests. No correctness bugs found. The hash triple-check, fail-closed OPA, override/backend/provisioner guards and the provider mirror allowlist all hold. The "10 open review fixes" mentioned in the relaunch brief did not exist: there is no review file in the repo. Rewrote `docs/DEVDOCS.md` as the final developer guide, with exit codes, the manual flow and a fuller diagram. The seeded bench rerun changed only the timings, and the README now shows median/p90 14.56/16.28 s. The headline is unchanged.
+
+**Gates (real, rerun by Opus, LocalStack up):** G1 ruff "All checks passed!"; G2 "55 files already formatted"; G3 opa check --strict and opa fmt rc=0; G4 PASS 53/53; G5 coverage 11/11 (100%); G6 193 passed, 1 skipped (live) in 149.65 s; G7 sdist and wheel built; G8 violations reached apply 0/24, benign applied 6/6, approval 2/2, mismatches 0; G9 compose-ok; G10 runtime image built, and `docker run infra-agent:0.1.0 --help` prints usage; G11 secrets-scan-done only. The manual propose, review, approve and audit flow (`scripts/dev.sh bash scripts/demo.sh`) applied and printed "audit chain ok".
+
+**Left:** CI has not run on GitHub. CDK path and Slack approvals (v0.2). The live bench is n=6.
+
+**Verify:** `docker compose up -d --wait localstack`, then the commands in the plan's Task 25 block, then `docker compose down`.

@@ -1,6 +1,6 @@
 # infra-agent v0.1 Implementation Plan
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:executing-plans (one builder in one context) or superpowers:subagent-driven-development to carry out this plan task by task. Steps use checkbox (`- [ ]`) syntax. Use superpowers:test-driven-development for every code task: write the test, run it and see it fail for the right reason, then implement. Use superpowers:verification-before-completion before claiming done.
+> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:executing-plans (one builder in one context) or superpowers:subagent-driven-development to carry out this plan task by task. Steps use checkbox (`- [x]`) syntax. Use superpowers:test-driven-development for every code task: write the test, run it and see it fail for the right reason, then implement. Use superpowers:verification-before-completion before claiming done.
 
 **Goal:** Ship a Python CLI (`infra-agent`) in which an LLM proposes Terraform changes. The changes then pass through a deterministic pipeline: scratch git diff, offline `terraform plan`, a normalized ChangeSet, OPA/Rego policy, and a LangGraph `interrupt()` approval bound to the SHA-256 of `plan.bin`. Only after that can it apply, and only to LocalStack. The headline benchmark is measured: "0 of N seeded violations reached apply".
 
@@ -76,7 +76,7 @@ Already done. `git log --oneline` shows `docs: add v0.1 spec, ADRs, implementati
 
 **Files:** create `pyproject.toml`, `.python-version`, `.gitignore`, `README.md` (stub), `Dockerfile`, `docker/terraformrc`, `docker/mirror/versions.tf`, `docker-compose.yml`, `scripts/dev.sh`, `scripts/dev.ps1`, `src/infra_agent/__init__.py`, `tests/test_smoke.py`, `tests/conftest.py`.
 
-- [ ] **Step 1: Write the files.**
+- [x] **Step 1: Write the files.**
 
 `pyproject.toml`:
 ```toml
@@ -265,7 +265,7 @@ def pytest_collection_modifyitems(config, items):
 
 `tests/test_smoke.py`: assert `infra_agent.__version__ == "0.1.0"`, and assert `shutil.which("terraform")`, `shutil.which("opa")` and `shutil.which("git")` are not None.
 
-- [ ] **Step 2: Build and lock.**
+- [x] **Step 2: Build and lock.**
 ```bash
 cd /c/Users/sathwik/projects/taskarinchu/infra-agent
 chmod +x scripts/dev.sh
@@ -277,7 +277,7 @@ scripts/dev.sh opa version | head -1
 ```
 Expected: the build succeeds (the first one takes about 3 min, mostly the provider mirror). `uv.lock` is created. Output shows `Terraform v1.16.5`, `on linux_amd64` and `Version: 1.21.1`.
 
-- [ ] **Step 3: Run the tests and lint.**
+- [x] **Step 3: Run the tests and lint.**
 ```bash
 scripts/dev.sh uv run pytest -q 2>&1 | tail -3
 scripts/dev.sh uv run ruff check . && scripts/dev.sh uv run ruff format --check .
@@ -318,8 +318,8 @@ def sha256_tree(root: Path, suffixes: tuple[str, ...] = (".rego",)) -> str
     # sorted posix relpaths; feed f"{relpath}\0{sha256_file}\n" for each file into one sha256
 ```
 
-- [ ] Tests (write first, see them fail): `test_defaults`, `test_env_overrides` (every variable, with ints and floats parsed), `test_invalid_int_raises_value_error_naming_the_variable`, `test_policy_dir_points_into_package` (`.name == "policy"`). For hashing: the known vector `sha256_bytes(b"") == "e3b0c442…b855"`, `sha256_file` equals `sha256_bytes` of the same content, `sha256_tree` stays the same when files are created in a different order, and changes when any file's content or name changes, and ignores files with other suffixes.
-- [ ] Run `scripts/dev.sh uv run pytest -q tests/test_config.py tests/test_hashing.py`. Expected: all pass.
+- [x] Tests (write first, see them fail): `test_defaults`, `test_env_overrides` (every variable, with ints and floats parsed), `test_invalid_int_raises_value_error_naming_the_variable`, `test_policy_dir_points_into_package` (`.name == "policy"`). For hashing: the known vector `sha256_bytes(b"") == "e3b0c442…b855"`, `sha256_file` equals `sha256_bytes` of the same content, `sha256_tree` stays the same when files are created in a different order, and changes when any file's content or name changes, and ignores files with other suffixes.
+- [x] Run `scripts/dev.sh uv run pytest -q tests/test_config.py tests/test_hashing.py`. Expected: all pass.
 - [ ] Commit `feat: settings from env and sha256 helpers`.
 
 ---
@@ -375,7 +375,7 @@ class FakeRunner:            # check_argv still runs (so the fakes cannot hide v
     # key = argv[1] (the subcommand); a missing key returns returncode 0 with empty output. Records .calls
 ```
 
-- [ ] Tests: `test_plan_purpose_rejects_apply_and_destroy` (`terraform apply`, `terraform plan -destroy`, `terraform state rm x`), `test_plan_purpose_allows_init_plan_show`, `test_apply_purpose_only_exact_saved_plan_form` (refuses `-auto-approve` extras, `-target`, `-var`, a path not ending in `plan.bin`, and `destroy`), `test_unknown_executable_refused` (`bash -c …`, `python`), `test_policy_purpose_only_opa`, `test_git_purpose_subcommand_allowlist` (refuses `git push`, `git remote add`), `test_terraform_env_has_no_host_aws_credentials` (monkeypatch `AWS_PROFILE`, `AWS_SESSION_TOKEN` and a real-looking key into os.environ, then assert none of them show up and `AWS_ENDPOINT_URL == settings.localstack_url`), `test_fake_runner_still_checks_argv`, `test_subprocess_runner_runs_real_git` (`git init` then `git rev-parse --is-inside-work-tree` in `tmp_path` → stdout `true`), `test_git_version_flag_refused` (`git --version` is not an allowed subcommand).
+- [x] Tests: `test_plan_purpose_rejects_apply_and_destroy` (`terraform apply`, `terraform plan -destroy`, `terraform state rm x`), `test_plan_purpose_allows_init_plan_show`, `test_apply_purpose_only_exact_saved_plan_form` (refuses `-auto-approve` extras, `-target`, `-var`, a path not ending in `plan.bin`, and `destroy`), `test_unknown_executable_refused` (`bash -c …`, `python`), `test_policy_purpose_only_opa`, `test_git_purpose_subcommand_allowlist` (refuses `git push`, `git remote add`), `test_terraform_env_has_no_host_aws_credentials` (monkeypatch `AWS_PROFILE`, `AWS_SESSION_TOKEN` and a real-looking key into os.environ, then assert none of them show up and `AWS_ENDPOINT_URL == settings.localstack_url`), `test_fake_runner_still_checks_argv`, `test_subprocess_runner_runs_real_git` (`git init` then `git rev-parse --is-inside-work-tree` in `tmp_path` → stdout `true`), `test_git_version_flag_refused` (`git --version` is not an allowed subcommand).
 - [ ] Commit `feat: subprocess runner with argv allowlist and minimal terraform env`.
 
 ---
@@ -398,7 +398,7 @@ def utcnow() -> datetime  # timezone-aware UTC
 ```
 Line format: `json.dumps(record, sort_keys=True, separators=(",", ":"))` where `record = {"seq", "run_id", "event", "at", "prev_sha256", **fields}`. `prev_sha256` for seq 0 is `GENESIS`. Otherwise it is `sha256_bytes(previous_line_without_newline.encode())`. Write with `open(path, "a", encoding="utf-8", newline="\n")`. `verify_log` checks for each line: valid JSON, `seq == index`, and `prev_sha256` matching. A missing file gives `ok=False`.
 
-- [ ] Tests: `test_chain_roundtrip` (3 events, verify ok, count 3), `test_tamper_detected_names_first_bad_seq` (rewrite a field in line 1 of 3 lines; the first bad seq is 2, because line 2's prev hash no longer matches), `test_deleted_line_detected`, `test_reordered_lines_detected`, `test_append_continues_chain_across_instances` (two `AuditLog` objects on the same path), `test_non_json_line_reported`.
+- [x] Tests: `test_chain_roundtrip` (3 events, verify ok, count 3), `test_tamper_detected_names_first_bad_seq` (rewrite a field in line 1 of 3 lines; the first bad seq is 2, because line 2's prev hash no longer matches), `test_deleted_line_detected`, `test_reordered_lines_detected`, `test_append_continues_chain_across_instances` (two `AuditLog` objects on the same path), `test_non_json_line_reported`.
 - [ ] Commit `feat: hash-chained JSONL audit log with verify`.
 
 ---
@@ -419,7 +419,7 @@ class RepoTools:
 ```
 `read_file` refuses (`RepoAccessError` with a clear message): an empty path, absolute paths (`/x`, `C:\x`, `C:/x`, `\\server\x`), any `..` segment, backslashes, NUL, paths that resolve outside `root.resolve()` (catches symlinks), directories, missing files, files over `max_file_bytes`, and non-UTF-8 content.
 
-- [ ] Tests: one parametrized test per refusal case, plus `test_symlink_escape_blocked` (create `root/link.tf -> ../outside.tf` with `os.symlink`. The container is Linux, so this works), `test_list_skips_dot_dirs_and_state`, `test_reads_nested_file`.
+- [x] Tests: one parametrized test per refusal case, plus `test_symlink_escape_blocked` (create `root/link.tf -> ../outside.tf` with `os.symlink`. The container is Linux, so this works), `test_list_skips_dot_dirs_and_state`, `test_reads_nested_file`.
 - [ ] Commit `feat: repo read tools confined to the repo root`.
 
 ---
@@ -547,7 +547,7 @@ Required tests: deny for inline ssh, for `aws_security_group_rule` 3389, for `aw
 
 `tests/test_rego.py`: runs `opa test <policy_dir>` (through `SubprocessRunner`, purpose `policy`) and asserts returncode 0. Also runs `opa check --strict <policy_dir>` and `opa fmt --list --fail <policy_dir>` and asserts both return 0. Run `opa fmt -w` on the bundle before committing.
 
-- [ ] `scripts/dev.sh opa test src/infra_agent/policy -v 2>&1 | tail -5`. Expected: `PASS: n/n`.
+- [x] `scripts/dev.sh opa test src/infra_agent/policy -v 2>&1 | tail -5`. Expected: `PASS: n/n`.
 - [ ] Commit `feat(policy): decision precedence and admin-port ingress rule`.
 
 ---
@@ -586,7 +586,7 @@ Required tests: deny for inline ssh, for `aws_security_group_rule` 3389, for `aw
 - Decision tests: needs_approval only gives `"needs_approval"`. Deny plus needs_approval gives `"deny"`. Warn only gives `"allow"`.
 - `scripts/policy_coverage.py`: finds rule names by regex `"rule":\s*"([a-z_]+)"` in non-test `.rego` files under the policy dir. Finds test names `test_([a-z_]+?)_(allow|deny)\w*` in `*_test.rego`. Prints a table `rule | allow | deny` and `coverage: X/Y rules (Z%)`. Exits 1 when Z < 100. `main(argv) -> int` takes `--policy-dir`.
 - `tests/test_policy_coverage.py`: runs `main` on the real bundle (expects 0 and 11 rules), and on a tmp bundle where a deny test is missing (expects 1).
-- [ ] Run `scripts/dev.sh uv run python scripts/policy_coverage.py`. Expected: `coverage: 11/11 rules (100%)`.
+- [x] Run `scripts/dev.sh uv run python scripts/policy_coverage.py`. Expected: `coverage: 11/11 rules (100%)`.
 - [ ] Commit `feat(policy): approval and tag rules, rule coverage check`.
 
 ---
@@ -610,7 +610,7 @@ Rules (shapes checked against a real plan on 2026-10-04: `format_version` "1.2")
 
 `tests/factories.py`: `LS = "http://localstack:4566"`. `rc(address, type_, actions, after=None, before=None)` builds a `resource_changes` item. `provider_cfg(endpoints=LS, region="us-east-1", key="aws", alias=None)` builds a `provider_config` entry. `plan(resource_changes=(), providers=None, resources_cfg=(), module_calls=None)` builds a full plan dict. `changeset(**kw)` returns `normalize_terraform(plan(**kw), plan_sha256="0"*64, base_commit="b"*40, patch_sha256="1"*64)`.
 
-- [ ] Tests: no-op and read are excluded, replace is detected in both orders, stats, an aliased provider is extracted, provisioners are found inside nested modules (`module.a.module.b.aws_s3_bucket.x`), module sources, `errored` raises, a missing configuration gives empty lists.
+- [x] Tests: no-op and read are excluded, replace is detected in both orders, stats, an aliased provider is extracted, provisioners are found inside nested modules (`module.a.module.b.aws_s3_bucket.x`), module sources, `errored` raises, a missing configuration gives empty lists.
 - [ ] Commit `feat: terraform plan JSON to ChangeSet normalizer`.
 
 ---
@@ -635,7 +635,7 @@ class OpaPolicy:
         # missing result / decision not in VALID_DECISIONS -> PolicyError
         # return {**value, "policy_bundle_sha256": self.bundle_sha256}
 ```
-- [ ] Tests (real opa): compliant → allow; ssh changeset → deny with the rule name; delete of a dynamodb table → needs_approval; `FakeRunner` returning rc 1 → PolicyError; `FakeRunner` returning `{"result": []}` → PolicyError; returning decision `"maybe"` → PolicyError; bundle hash is stable across two instances.
+- [x] Tests (real opa): compliant → allow; ssh changeset → deny with the rule name; delete of a dynamodb table → needs_approval; `FakeRunner` returning rc 1 → PolicyError; `FakeRunner` returning `{"result": []}` → PolicyError; returning decision `"maybe"` → PolicyError; bundle hash is stable across two instances.
 - [ ] Commit `feat: OPA evaluation that fails closed`.
 
 ---
@@ -699,9 +699,9 @@ provider "aws" {
 ```
 Note: the patch guard refuses `backend "` in **proposed** files. The override is written by the planner after the patch commit, so it is not affected.
 
-- [ ] Unit tests (`FakeRunner`): the override names every service and the state path; the argv sequence is init, plan, show, with purpose `plan`; plan rc 1 → `PlanError` that includes the stderr tail; env has `TF_VAR_name_prefix`; `FakePlanner` cycles through its plans.
-- [ ] `tests/integration/test_localstack.py` (`pytestmark = pytest.mark.localstack`): `test_plan_tf_basic_against_localstack` (prepare_workdir → plan; 3 creates; `plan_sha256` is 64 hex; normalized providers show the LocalStack endpoints; OPA decision is `allow` with no warn), `test_non_allowlisted_provider_fails_init` (add `terraform { required_providers { null = { source = "hashicorp/null" } } }` plus a `null_resource` → `PlanError` that mentions init), `test_aws_endpoint_url_env_routes_unconfigured_service` (a plan with `data "aws_sqs_queues" "all" {}` succeeds. SQS is not in the override's `endpoints`, so success proves that `AWS_ENDPOINT_URL` sent the call to LocalStack. With fake credentials, real AWS would fail with InvalidClientTokenId. If the AWS provider 6.67.0 ignores `AWS_ENDPOINT_URL`, record a `Ruling:` line and keep the `supported_resource_types` rule as the guard).
-- [ ] Run: `docker compose up -d --wait localstack && scripts/dev.sh uv run pytest -q -m localstack 2>&1 | tail -3`. Expected: all pass. (They take about 15–30 s each.)
+- [x] Unit tests (`FakeRunner`): the override names every service and the state path; the argv sequence is init, plan, show, with purpose `plan`; plan rc 1 → `PlanError` that includes the stderr tail; env has `TF_VAR_name_prefix`; `FakePlanner` cycles through its plans.
+- [x] `tests/integration/test_localstack.py` (`pytestmark = pytest.mark.localstack`): `test_plan_tf_basic_against_localstack` (prepare_workdir → plan; 3 creates; `plan_sha256` is 64 hex; normalized providers show the LocalStack endpoints; OPA decision is `allow` with no warn), `test_non_allowlisted_provider_fails_init` (add `terraform { required_providers { null = { source = "hashicorp/null" } } }` plus a `null_resource` → `PlanError` that mentions init), `test_aws_endpoint_url_env_routes_unconfigured_service` (a plan with `data "aws_sqs_queues" "all" {}` succeeds. SQS is not in the override's `endpoints`, so success proves that `AWS_ENDPOINT_URL` sent the call to LocalStack. With fake credentials, real AWS would fail with InvalidClientTokenId. If the AWS provider 6.67.0 ignores `AWS_ENDPOINT_URL`, record a `Ruling:` line and keep the `supported_resource_types` rule as the guard).
+- [x] Run: `docker compose up -d --wait localstack && scripts/dev.sh uv run pytest -q -m localstack 2>&1 | tail -3`. Expected: all pass. (They take about 15–30 s each.)
 - [ ] Commit `feat: terraform planner with LocalStack override and offline provider mirror`.
 
 ---
@@ -724,7 +724,7 @@ ssh_open_inline: {decision: deny, rules: [no_public_ingress_admin_ports]}
 
 `tests/test_corpus.py` (default tier: no LocalStack needed, because the plans are committed): `test_seeded_violation_fixtures_denied` is parametrized over index.yaml. It normalizes, evaluates with real OPA and context `{"localstack_url": "http://localstack:4566"}`, then asserts the decision and that every listed rule is in the deny rule names. `test_every_fixture_is_indexed`. Golden facts: `test_compliant_base_stats` (create 3), `test_provisioner_in_module_found` (address starts with `module.m.`), `test_aliased_provider_shape` (prints the real `provider_config` key for the alias. Fix the normalizer if the real key or the `alias` field differs from the factory, and record a `Ruling:`).
 
-- [ ] Run gen, then `scripts/dev.sh uv run pytest -q tests/test_corpus.py`. Expected: all pass.
+- [x] Run gen, then `scripts/dev.sh uv run pytest -q tests/test_corpus.py`. Expected: all pass.
 - [ ] Commit `test: golden terraform plans and seeded-violation corpus through OPA`.
 
 ---
@@ -767,8 +767,8 @@ class OllamaProposer:
 ```
 The feedback block format: `"Your previous attempt was refused:\n- <reason>\n…\nFix these and submit again."`
 
-- [ ] Tests (`httpx.MockTransport`, no network): `test_tool_registry_closed` (the names in `TOOLS` equal `TOOL_NAMES`, exactly 3), `test_happy_path_read_then_submit` (scripted transport: the first response calls read_file, the second calls submit_change. Assert the second request contains the tool result with the file content, and that `think` is False), `test_read_outside_repo_returns_error_to_model_not_exception`, `test_feedback_included_in_first_user_message`, `test_turn_limit_raises`, `test_string_arguments_parsed`, `test_http_error_raises_proposal_error`, `test_scripted_replays_and_repeats_last`.
-- [ ] `tests/integration/test_live.py` (`pytestmark = pytest.mark.live`): one real call on examples/tf-basic, "add a DynamoDB table named sessions with PITR on". Assert that a Proposal comes back with at least one `.tf` change. Do not assert exact content.
+- [x] Tests (`httpx.MockTransport`, no network): `test_tool_registry_closed` (the names in `TOOLS` equal `TOOL_NAMES`, exactly 3), `test_happy_path_read_then_submit` (scripted transport: the first response calls read_file, the second calls submit_change. Assert the second request contains the tool result with the file content, and that `think` is False), `test_read_outside_repo_returns_error_to_model_not_exception`, `test_feedback_included_in_first_user_message`, `test_turn_limit_raises`, `test_string_arguments_parsed`, `test_http_error_raises_proposal_error`, `test_scripted_replays_and_repeats_last`.
+- [x] `tests/integration/test_live.py` (`pytestmark = pytest.mark.live`): one real call on examples/tf-basic, "add a DynamoDB table named sessions with PITR on". Assert that a Proposal comes back with at least one `.tf` change. Do not assert exact content.
 - [ ] Commit `feat: scripted and Ollama tool-calling proposers`.
 
 ---
@@ -833,7 +833,7 @@ Node behaviour:
 
 `tests/helpers.py`: `make_deps(tmp_path, *, proposer, plans, runner=None)` returns `Deps` with a `FakePlanner(plans)`, the real `OpaPolicy` (but on a `SubprocessRunner` for opa only), `FakeRunner` for apply, git through `SubprocessRunner`, `Settings(home=tmp_path/"home", localstack_url=LS)`, and a fixed clock. Also `SAFE_PLAN` (from `factories.plan` with one tagged dynamodb create and LocalStack providers), `SSH_PLAN`, `DELETE_TABLE_PLAN`, and `ok_change()` / `bad_change()` FileChange dicts on `examples/tf-basic`.
 
-- [ ] Tests: `test_apply_gate_only_reachable_through_policy_and_approval` (from `app.get_graph().edges`, the sources of edges into `apply_gate` are exactly `{"approval"}`, into `approval` exactly `{"review"}`, into `review` exactly `{"policy"}`, and START's only target is `propose`); `test_allow_path_pauses_with_review_payload` (invoke → `__interrupt__` is in the result, the payload has a 64-hex plan_sha256 and decision `allow`, and the audit has `review_ready`); `test_deny_then_fix_pauses_on_attempt_2` (scripted bad then good, plans SSH then SAFE: attempt 2, the history has 1 refusal naming `no_public_ingress_admin_ports`, and the proposer saw the feedback); `test_max_attempts_exactly_three_policy_evals` (always bad: wrap the policy and count `evaluate` calls == 3, status rejected, exit 3); `test_patch_refusal_counts_as_attempt` (a `.github` path 3 times → rejected, and the planner was never called); `test_needs_approval_pauses` (DELETE_TABLE_PLAN → decision needs_approval in the payload); `test_policy_error_fails_closed` (a FakeRunner for opa with rc 1 → rejected after 3 attempts, never paused).
+- [x] Tests: `test_apply_gate_only_reachable_through_policy_and_approval` (from `app.get_graph().edges`, the sources of edges into `apply_gate` are exactly `{"approval"}`, into `approval` exactly `{"review"}`, into `review` exactly `{"policy"}`, and START's only target is `propose`); `test_allow_path_pauses_with_review_payload` (invoke → `__interrupt__` is in the result, the payload has a 64-hex plan_sha256 and decision `allow`, and the audit has `review_ready`); `test_deny_then_fix_pauses_on_attempt_2` (scripted bad then good, plans SSH then SAFE: attempt 2, the history has 1 refusal naming `no_public_ingress_admin_ports`, and the proposer saw the feedback); `test_max_attempts_exactly_three_policy_evals` (always bad: wrap the policy and count `evaluate` calls == 3, status rejected, exit 3); `test_patch_refusal_counts_as_attempt` (a `.github` path 3 times → rejected, and the planner was never called); `test_needs_approval_pauses` (DELETE_TABLE_PLAN → decision needs_approval in the payload); `test_policy_error_fails_closed` (a FakeRunner for opa with rc 1 → rejected after 3 attempts, never paused).
 - [ ] Commit `feat: LangGraph pipeline with bounded retries, review and interrupt`.
 
 ---
@@ -880,8 +880,8 @@ class Service:
 ```
 The Service is the only place that creates the checkpointer. `Deps.runner` is the same runner for git, plan, policy and apply.
 
-- [ ] Tests `test_apply_gate.py` (call `run_apply_gate` directly with a built state): `test_refuses_without_allow_decision` (decision deny → exit 1 and zero apply calls), `test_hash_mismatch_on_disk`, `test_hash_mismatch_in_approval`, `test_expired_approval` (clock + 25 h), `test_marker_makes_it_idempotent`, `test_apply_failure_exit_1`, `test_success_writes_marker_and_audit`.
-- [ ] Tests `test_service.py` (FakePlanner, real OPA, FakeRunner for terraform): `test_propose_then_approve_applies_once` (exit 2 then 0, 1 apply call, audit chain verifies, and the events appear in order run_started … review_ready, approved, applied), `test_stale_approval_refused` (after the pause, append a byte to plan.bin; approve with the review hash → exit 5, zero apply calls, audit `apply_refused_hash_mismatch`), `test_wrong_hash_in_approval_refused`, `test_reject_exit_4_no_apply`, `test_second_approve_says_already_applied` (still exactly 1 apply call), `test_unknown_run_exit_1`, `test_policy_bundle_hash_unchanged_by_run` (`sha256_tree(policy_dir)` before == after == the value in `review_ready`), `test_denied_run_exit_3_never_calls_apply`.
+- [x] Tests `test_apply_gate.py` (call `run_apply_gate` directly with a built state): `test_refuses_without_allow_decision` (decision deny → exit 1 and zero apply calls), `test_hash_mismatch_on_disk`, `test_hash_mismatch_in_approval`, `test_expired_approval` (clock + 25 h), `test_marker_makes_it_idempotent`, `test_apply_failure_exit_1`, `test_success_writes_marker_and_audit`.
+- [x] Tests `test_service.py` (FakePlanner, real OPA, FakeRunner for terraform): `test_propose_then_approve_applies_once` (exit 2 then 0, 1 apply call, audit chain verifies, and the events appear in order run_started … review_ready, approved, applied), `test_stale_approval_refused` (after the pause, append a byte to plan.bin; approve with the review hash → exit 5, zero apply calls, audit `apply_refused_hash_mismatch`), `test_wrong_hash_in_approval_refused`, `test_reject_exit_4_no_apply`, `test_second_approve_says_already_applied` (still exactly 1 apply call), `test_unknown_run_exit_1`, `test_policy_bundle_hash_unchanged_by_run` (`sha256_tree(policy_dir)` before == after == the value in `review_ready`), `test_denied_run_exit_3_never_calls_apply`.
 - [ ] Commit `feat: hash-bound apply gate and run service with SQLite checkpoints`.
 
 ---
@@ -892,8 +892,8 @@ The Service is the only place that creates the checkpointer. `Deps.runner` is th
 
 `tests/restart_helper.py` (a script, not collected by pytest because the name has no `test_` prefix. It inserts the repo root into `sys.path` so it can import `tests.factories` and `tests.helpers`. Add an empty `tests/__init__.py` if needed): `python tests/restart_helper.py propose <home>` builds a `Service` with `ScriptedProposer` (a good change), `FakePlanner([SAFE_PLAN])`, the real OPA, and a `FakeRunner` whose `apply` response appends a line to `<home>/apply_calls.log`. It prints JSON `{"run_id", "exit_code", "plan_sha256"}`. `approve <home> <run_id> <sha>` prints `{"exit_code", "message"}`.
 
-- [ ] Test: `test_resume_after_restart_applies_once`. Process 1 runs propose → exit 2. Process 2 runs approve → exit 0. Process 3 runs approve → exit 0 and `"already applied"`. `apply_calls.log` has exactly 1 line, and `verify_log` is ok. Use `subprocess.run([sys.executable, helper, …], timeout=120)`.
-- [ ] Test: `test_process_killed_while_paused_resumes` (start propose with `subprocess.Popen` and wait for it to exit with 2. The checkpoint must already be on disk. Delete every in-memory object and approve from a new process.) This is the same as above, but asserts the sqlite file exists and is non-empty before process 2 starts.
+- [x] Test: `test_resume_after_restart_applies_once`. Process 1 runs propose → exit 2. Process 2 runs approve → exit 0. Process 3 runs approve → exit 0 and `"already applied"`. `apply_calls.log` has exactly 1 line, and `verify_log` is ok. Use `subprocess.run([sys.executable, helper, …], timeout=120)`.
+- [x] Test: `test_process_killed_while_paused_resumes` (start propose with `subprocess.Popen` and wait for it to exit with 2. The checkpoint must already be on disk. Delete every in-memory object and approve from a new process.) This is the same as above, but asserts the sqlite file exists and is non-empty before process 2 starts.
 - [ ] Commit `test: paused runs survive process restarts and apply once`.
 
 ---
@@ -925,8 +925,8 @@ approve with: infra-agent approve r-… --plan-sha <sha>
 ```
 `--json` prints one JSON object: `{"run_id", "exit_code", "status", "message", "review"}`. argparse exits 2 on usage errors, which would clash with "paused". Subclass `ArgumentParser` and override `error()` to print usage and exit **1**. Put the exit-code table in the `--help` epilog.
 
-- [ ] Tests through `main([...], service_factory=…)` using the Task 17 fakes: the exit code for each path (2, 0, 3, 4, 5), `--json` parses, the review output lists refusals before the diff, `audit verify` on a tampered log → 1 and names the seq, `--proposer scripted` without `--script` → 1 with a message.
-- [ ] Smoke inside the container: `scripts/dev.sh uv run infra-agent --help | head -5`.
+- [x] Tests through `main([...], service_factory=…)` using the Task 17 fakes: the exit code for each path (2, 0, 3, 4, 5), `--json` parses, the review output lists refusals before the diff, `audit verify` on a tampered log → 1 and names the seq, `--proposer scripted` without `--script` → 1 with a message.
+- [x] Smoke inside the container: `scripts/dev.sh uv run infra-agent --help | head -5`.
 - [ ] Commit `feat: infra-agent CLI with documented exit codes`.
 
 ---
@@ -937,7 +937,7 @@ approve with: infra-agent approve r-… --plan-sha <sha>
 
 `examples/demo/ssh-then-private.yaml`: attempt 1 adds `aws_vpc_security_group_ingress_rule.ssh` from `0.0.0.0/0` on port 22. Attempt 2 is the same rule from `10.0.0.0/8`, with tags.
 
-- [ ] Tests (`localstack` marker, real `Service` with defaults except `ScriptedProposer`, a home in `tmp_path`, and a unique `name_prefix` per test from `uuid4().hex[:8]`): `test_deny_then_fix_then_approve_applies` (exit 2 on attempt 2 → approve → exit 0. LocalStack really has the rule: check with a second plan that shows no changes, or by reading the state file for the resource address). `test_stale_plan_bin_refused_on_real_terraform` (tamper → exit 5, and the state file has no new resource). `test_apply_endpoint_is_localstack` (after apply, every `aws` provider endpoint in the state's or plan's provider config equals the LocalStack URL, and the scratch override file has no other URL).
+- [x] Tests (`localstack` marker, real `Service` with defaults except `ScriptedProposer`, a home in `tmp_path`, and a unique `name_prefix` per test from `uuid4().hex[:8]`): `test_deny_then_fix_then_approve_applies` (exit 2 on attempt 2 → approve → exit 0. LocalStack really has the rule: check with a second plan that shows no changes, or by reading the state file for the resource address). `test_stale_plan_bin_refused_on_real_terraform` (tamper → exit 5, and the state file has no new resource). `test_apply_endpoint_is_localstack` (after apply, every `aws` provider endpoint in the state's or plan's provider config equals the LocalStack URL, and the scratch override file has no other URL).
 - [ ] Run with LocalStack up. Expected: all pass. Commit `test: end-to-end deny-fix-approve-apply against LocalStack`.
 
 ---
@@ -977,7 +977,7 @@ Cases (all built on `examples/tf-basic`. Every resource name uses `${var.name_pr
 
 `tests/test_bench_cases.py` (default tier): every YAML parses, ids are unique and match the file names, the kinds have the expected counts (24/6/2), and every violation declares `expect.stage` and, for the policy stage, a rule that exists in the policy bundle (use the coverage script's rule finder).
 
-- [ ] Run: `docker compose up -d --wait localstack && scripts/dev.sh uv run python -m bench.seeded 2>&1 | tail -15`. Expected: exit 0, `violations reached apply: 0/24`, `benign applied: 6/6`. Paste the real summary into the ledger. If a case mismatches, fix the cause (the case, the rule or the code). Never loosen the expectation to get a pass, unless the expectation itself was wrong; then write a `Ruling:` line.
+- [x] Run: `docker compose up -d --wait localstack && scripts/dev.sh uv run python -m bench.seeded 2>&1 | tail -15`. Expected: exit 0, `violations reached apply: 0/24`, `benign applied: 6/6`. Paste the real summary into the ledger. If a case mismatches, fix the cause (the case, the rule or the code). Never loosen the expectation to get a pass, unless the expectation itself was wrong; then write a `Ruling:` line.
 - [ ] Commit `bench: seeded violation corpus and headline benchmark (measured)`. Include `bench/results/seeded-latest.*`.
 
 ---
@@ -1021,8 +1021,8 @@ Use `actions/checkout@v5` and `actions/upload-artifact@v4`.
 
 `scripts/record_demo.py`: runs `bash scripts/demo.sh` inside the container with `subprocess.Popen`, reads stdout line by line, and timestamps each line. It writes `docs/demo/demo.cast` (asciicast v2: the header `{"version": 2, "width": 110, "height": 34}`, then `[t, "o", line + "\r\n"]`. Compress pauses longer than 1.5 s to 1.5 s, and say so in the README) and `docs/demo/demo.txt` (the plain transcript). Then, on the host: `MSYS_NO_PATHCONV=1 docker run --rm -v "$PWD/docs/demo:/data" ghcr.io/asciinema/agg:1.9.0 demo.cast demo.gif` (prototyped: works; the image's workdir is /data). Remove the agg image afterwards if it was not there before.
 
-- [ ] Run the demo and record it. Expected: the transcript shows attempt 1 refused (`no_public_ingress_admin_ports`), a pause at attempt 2, `applied`, and `audit chain ok`. The GIF exists and is under 2 MB.
-- [ ] Validate CI locally as far as possible: `scripts/dev.sh uv run pytest -q tests/test_ci_files.py`. You cannot run GitHub Actions here. Say so in the handoff.
+- [x] Run the demo and record it. Expected: the transcript shows attempt 1 refused (`no_public_ingress_admin_ports`), a pause at attempt 2, `applied`, and `audit chain ok`. The GIF exists and is under 2 MB.
+- [x] Validate CI locally as far as possible: `scripts/dev.sh uv run pytest -q tests/test_ci_files.py`. You cannot run GitHub Actions here. Say so in the handoff.
 - [ ] Commit `ci: checks and LocalStack jobs; runtime image; recorded demo`.
 
 ---
@@ -1045,7 +1045,7 @@ README order:
 
 `docs/DEVDOCS.md`: a draft in the 7-section order from the session brief (the Opus lead finalises it in step 5).
 
-- [ ] `grep -nE "TODO|XX%|<<|N of N" README.md docs/DEVDOCS.md`. Expected: no output.
+- [x] `grep -nE "TODO|XX%|<<|N of N" README.md docs/DEVDOCS.md`. Expected: no output.
 - [ ] Commit `docs: README with measured headline, DEVDOCS draft, license`.
 
 ---
@@ -1074,7 +1074,7 @@ docker compose down
 ```
 
 - [ ] If G8 changed the numbers, update the README headline from the new `seeded-latest.json` and commit it.
-- [ ] Append to `docs/handoff.md`: date 2026-10-04, harness Claude (builder), branch `main`, what changed, the gate results (real), what is left (CDK, Slack, live bench if not run, CI not executed on GitHub), and how to verify (the gate commands above).
+- [x] Append to `docs/handoff.md`: date 2026-10-04, harness Claude (builder), branch `main`, what changed, the gate results (real), what is left (CDK, Slack, live bench if not run, CI not executed on GitHub), and how to verify (the gate commands above).
 - [ ] Tick the checkboxes in this plan, except commit steps.
 - [ ] Commit `docs: handoff after v0.1 gates`.
-- [ ] Ledger: `FINAL: <one line with gate results>`.
+- [x] Ledger: `FINAL: <one line with gate results>`.
